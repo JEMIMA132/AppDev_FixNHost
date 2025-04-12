@@ -1,117 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
-.homepage {
-    text-align: center;
-    padding: 20px;
-  
-    .hero-section {
-      background-color: #2d3748; /* Matches the dark theme of Laravel welcome page */
-      padding: 40px;
-      border-radius: 10px;
-      color: #e2e8f0; /* Light gray text */
-      margin-bottom: 30px;
-  
-      .hero-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: #fff; /* White text for the title */
-      }
-  
-      .hero-subtitle {
-        font-size: 1.25rem;
-        margin-bottom: 20px;
-        color: #cbd5e0; /* Slightly lighter gray */
-      }
-  
-      .login-button {
-        padding: 10px 20px;
-        font-size: 16px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: #718096; /* Gray to match the theme */
-        color: white;
-        transition: background-color 0.3s ease;
-  
-        &:hover {
-          background-color: #5a6e82;
-        }
-      }
-    }
-  
-    .services-section {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-  
-      .service-card {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        width: 300px;
-        transition: transform 0.3s ease;
-  
-        &:hover {
-          transform: translateY(-5px);
-        }
-  
-        h2 {
-          font-size: 1.5rem;
-          margin-bottom: 10px;
-        }
-  
-        p {
-          font-size: 1rem;
-          color: #4a5568; /* Dark gray text */
-          margin-bottom: 15px;
-        }
-  
-        .book-button {
-          padding: 10px 20px;
-          font-size: 16px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          color: white;
-          transition: background-color 0.3s ease;
-        }
-      }
-  
-      .wedding-service {
-        border: 2px solid #f7cac9; /* Soft pink border for wedding theme */
-  
-        h2 {
-          color: #de6e6c; /* Pinkish-red for wedding theme */
-        }
-  
-        .book-button {
-          background-color: #de6e6c;
-  
-          &:hover {
-            background-color: #c65d5b;
-          }
-        }
-      }
-  
-      .repair-service {
-        border: 2px solid #a3bffa; /* Light blue border for repair theme */
-  
-        h2 {
-          color: #4a90e2; /* Blue for repair theme */
-        }
-  
-        .book-button {
-          background-color: #4a90e2;
-  
-          &:hover {
-            background-color: #3b7dd8;
-          }
-        }
-      }
-    }
-  }
 @charset "UTF-8";
 /*!
  * Bootstrap  v5.3.5 (https://getbootstrap.com/)
@@ -12083,4 +11970,274 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+.Header {
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Albert Sans", sans-serif; /* Changed to Albert Sans */
+  font-size: 15px; /* Set base font size to 15px */
+  /* Responsive Design */
+}
+.Header__logo {
+  flex-shrink: 0;
+}
+.Header__logo-img {
+  height: 40px;
+  width: auto;
+}
+.Header__nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center; /* Ensure vertical alignment */
+}
+.Header__nav .Header__link {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.Header__nav .Header__link:hover, .Header__nav .Header__link.active {
+  color: #000;
+  font-weight: bold;
+}
+.Header__nav .Header__dropdown {
+  margin-left: 1rem; /* Slight spacing between links and dropdown */
+}
+.Header__dropdown {
+  position: relative;
+}
+.Header__dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #333;
+  font-size: inherit; /* Inherit the 15px from parent */
+}
+.Header__dropdown-toggle:hover {
+  color: #000;
+}
+.Header__dropdown-icon {
+  font-size: 1.5rem;
+  margin-left: 2px;
+}
+.Header__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 150px;
+}
+.Header__dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #333;
+  text-decoration: none;
+  font-size: inherit; /* Inherit the 15px from parent */
+}
+.Header__dropdown-item:hover {
+  background: #f0f0f0;
+}
+.Header__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.Header__icon {
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.Header__icon:hover {
+  opacity: 0.7;
+}
+.Header__login-btn {
+  background-color: #e4dbc6;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 0px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: inherit; /* Inherit the 15px from parent */
+  transition: background-color 0.3s;
+}
+.Header__login-btn:hover {
+  background-color: #d4cbb3;
+}
+@media (max-width: 768px) {
+  .Header { /* Tablet and below */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  .Header__logo {
+    margin-bottom: 1rem;
+  }
+  .Header__nav {
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .Header__nav .Header__link,
+  .Header__nav .Header__dropdown-toggle {
+    font-size: 0.9em; /* Relative to 15px, becomes ~13.5px */
+  }
+  .Header__nav .Header__dropdown-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
+  .Header__nav .Header__dropdown-item {
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .Header__actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .Header__actions .Header__icon {
+    height: 20px;
+    width: 20px;
+  }
+  .Header__actions .Header__login-btn {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9em; /* Relative to 15px, becomes ~13.5px */
+  }
+}
+@media (max-width: 480px) {
+  .Header { /* Mobile */
+    padding: 0.5rem;
+  }
+  .Header__logo {
+    margin-bottom: 0.5rem;
+  }
+  .Header__nav {
+    gap: 0.5rem;
+  }
+  .Header__nav .Header__link,
+  .Header__nav .Header__dropdown-toggle {
+    font-size: 0.8em; /* Relative to 15px, becomes ~12px */
+  }
+  .Header__actions {
+    gap: 0.3rem;
+  }
+  .Header__actions .Header__icon {
+    height: 18px;
+    width: 18px;
+  }
+  .Header__actions .Header__login-btn {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8em; /* Relative to 15px, becomes ~12px */
+  }
+}
+
+.homepage {
+  text-align: center;
+  padding: 20px;
+}
+.homepage .hero-section {
+  background-color: #2d3748;
+  padding: 40px;
+  border-radius: 10px;
+  color: #e2e8f0;
+  margin-bottom: 30px;
+}
+.homepage .hero-section .hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #fff;
+}
+.homepage .hero-section .hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  color: #cbd5e0;
+}
+.homepage .hero-section .login-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #718096;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.homepage .hero-section .login-button:hover {
+  background-color: #5a6e82;
+}
+.homepage .services-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.homepage .services-section .service-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease;
+}
+.homepage .services-section .service-card:hover {
+  transform: translateY(-5px);
+}
+.homepage .services-section .service-card h2, .homepage .services-section .service-card .h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.homepage .services-section .service-card p {
+  font-size: 1rem;
+  color: #4a5568;
+  margin-bottom: 15px;
+}
+.homepage .services-section .service-card .book-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.homepage .services-section .wedding-service {
+  border: 2px solid #f7cac9;
+}
+.homepage .services-section .wedding-service h2, .homepage .services-section .wedding-service .h2 {
+  color: #de6e6c;
+}
+.homepage .services-section .wedding-service .book-button {
+  background-color: #de6e6c;
+}
+.homepage .services-section .wedding-service .book-button:hover {
+  background-color: #c65d5b;
+}
+.homepage .services-section .repair-service {
+  border: 2px solid #a3bffa;
+}
+.homepage .services-section .repair-service h2, .homepage .services-section .repair-service .h2 {
+  color: #4a90e2;
+}
+.homepage .services-section .repair-service .book-button {
+  background-color: #4a90e2;
+}
+.homepage .services-section .repair-service .book-button:hover {
+  background-color: #3b7dd8;
 }

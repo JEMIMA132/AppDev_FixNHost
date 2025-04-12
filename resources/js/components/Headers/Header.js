@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -8,89 +9,62 @@ const Header = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleMessagesClick = () => {
+    alert("No messages at the moment.");
+  };
+
+  const handleNotificationsClick = () => {
+    alert("No notifications at the moment.");
+  };
+
   return (
-    <header className="bg-white shadow-md py-4 px-6 flex items-center justify-between">
-      {/* Logo on the left */}
-      <div className="flex-shrink-0">
+    <header className="Header">
+      <div className="Header__logo">
         <NavLink to="/">
           <img
-            src="/images/fixnhostlogo.svg" // Path relative to public folder
+            src="/images/fixnhostlogo.svg"
             alt="FixNHost Logo"
-            className="h-10 w-auto"
+            className="Header__logo-img"
           />
         </NavLink>
       </div>
 
-      {/* Centered Navigation Links */}
-      <nav className="flex-1 flex justify-center space-x-8">
-        <NavLink
-          to="/homepage" // Matches your routing
-          className={({ isActive }) =>
-            `text-gray-700 hover:text-blue-600 transition-colors ${
-              isActive ? "font-bold text-blue-600" : ""
-            }`
-          }
-        >
+      <nav className="Header__nav">
+        <NavLink to="/homepage" className="Header__link">
           Home
         </NavLink>
-        <NavLink
-          to="/services"
-          className={({ isActive }) =>
-            `text-gray-700 hover:text-blue-600 transition-colors ${
-              isActive ? "font-bold text-blue-600" : ""
-            }`
-          }
-        >
+        <NavLink to="/services" className="Header__link">
           Services
         </NavLink>
-        <NavLink
-          to="/about"
-          className={({ isActive }) =>
-            `text-gray-700 hover:text-blue-600 transition-colors ${
-              isActive ? "font-bold text-blue-600" : ""
-            }`
-          }
-        >
+        <NavLink to="/about" className="Header__link">
           About Us
         </NavLink>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            `text-gray-700 hover:text-blue-600 transition-colors ${
-              isActive ? "font-bold text-blue-600" : ""
-            }`
-          }
-        >
+        <NavLink to="/contact" className="Header__link">
           Contact Us
         </NavLink>
-
-        {/* Support Dropdown */}
-        <div className="relative">
-          <button
-            onClick={toggleDropdown}
-            className="text-gray-700 hover:text-blue-600 transition-colors focus:outline-none"
-          >
-            Support
+        <div className="Header__dropdown">
+          <button onClick={toggleDropdown} className="Header__dropdown-toggle">
+            Support <RiArrowDropDownLine className="Header__dropdown-icon" />
           </button>
           {isDropdownOpen && (
-            <div className="absolute mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10">
+            <div className="Header__dropdown-menu">
               <NavLink
                 to="/privacy-policy"
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className="Header__dropdown-item"
                 onClick={() => setIsDropdownOpen(false)}
               >
                 Privacy Policy
               </NavLink>
               <NavLink
                 to="/terms-of-service"
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className="Header__dropdown-item"
                 onClick={() => setIsDropdownOpen(false)}
               >
                 Terms of Service
               </NavLink>
               <NavLink
                 to="/faqs"
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className="Header__dropdown-item"
                 onClick={() => setIsDropdownOpen(false)}
               >
                 FAQs
@@ -100,13 +74,15 @@ const Header = () => {
         </div>
       </nav>
 
-      {/* Login Button on the right */}
-      <div className="flex-shrink-0">
-        <NavLink
-          to="/login"
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-        >
-          Login
+      <div className="Header__actions">
+        <NavLink to="#" onClick={handleMessagesClick}>
+          <img src="/images/messages.svg" alt="Messages" className="Header__icon" />
+        </NavLink>
+        <NavLink to="#" onClick={handleNotificationsClick}>
+          <img src="/images/notif.svg" alt="Notifications" className="Header__icon" />
+        </NavLink>
+        <NavLink to="/login" className="Header__login-btn">
+          LOGIN
         </NavLink>
       </div>
     </header>
