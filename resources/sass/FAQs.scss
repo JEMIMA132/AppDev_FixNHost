@@ -1,0 +1,134 @@
+.faqs-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.faqs-container {
+  flex: 1;
+  display: flex;
+  padding: 4rem 0;
+}
+
+.faqs-content {
+  width: 100%;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    color: white;
+    font-weight: 400;
+  }
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.faq-item {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &.active {
+    .faq-question {
+      .arrow {
+        transform: rotate(180deg);
+        background: #4a4a4a;
+      }
+    }
+
+    .faq-answer {
+      max-height: none;
+      opacity: 1;
+      padding: 1rem 0;
+    }
+  }
+}
+
+.faq-question {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-weight: 400;
+  font-size: 1.1rem;
+  position: relative;
+  padding-right: 3rem;
+
+  .arrow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: #2a2a2a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    &::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) translateY(-2px);
+      display: block;
+    }
+  }
+}
+
+.faq-answer {
+  max-height: 0;
+  padding: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .faqs-container {
+    padding: 2rem 1rem;
+  }
+
+  .faqs-content {
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .faq-question {
+    font-size: 1rem;
+  }
+
+  .faq-answer {
+    font-size: 0.95rem;
+  }
+} 

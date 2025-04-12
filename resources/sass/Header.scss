@@ -1,206 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans&display=swap');
+
 .Header {
-    background-color: white;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem 1.5rem;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1.5rem;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+  position: relative;
+
+  &__logo {
+    flex-shrink: 0;
+
+    &-img {
+      height: 40px;
+      width: auto;
+    }
+  }
+
+  &__nav {
+    flex: 1;
     display: flex;
+    justify-content: center;
+    gap: 2rem;
     align-items: center;
-    justify-content: space-between;
-    font-family: "Albert Sans", sans-serif; /* Changed to Albert Sans */
-    font-size: 15px; /* Set base font size to 15px */
-  
-    &__logo {
-      flex-shrink: 0;
-  
-      &-img {
-        height: 40px;
-        width: auto;
+    position: relative;
+
+    .Header__link {
+      color: #333;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      padding: 0.25rem 0;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: normal;
+
+      &:hover {
+        color: #000;
+      }
+
+      &.active {
+        font-weight: bold;
+        color: #000;
       }
     }
-  
-    &__nav {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      align-items: center; /* Ensure vertical alignment */
-  
-      .Header__link {
+
+    .Header__dropdown-icon {
+      font-size: 1.5rem;
+      margin-left: 2px;
+    }
+
+    .Header__dropdown-wrapper {
+      position: relative;
+      display: inline-block;
+
+      button.Header__link {
+        font-family: inherit;
+        font-size: inherit;
+        padding: 0;
+      }
+    }
+
+    .Header__dropdown-menu {
+      position: absolute;
+      top: 100%;
+      margin-top: 0.25rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      min-width: 150px;
+
+      .Header__dropdown-item {
+        display: block;
+        padding: 0.5rem 1rem;
         color: #333;
         text-decoration: none;
-        transition: color 0.2s ease;
-  
-        &:hover,
-        &.active {
-          color: #000;
-          font-weight: bold;
+        font-weight: normal;
+
+        &:hover {
+          background: #f0f0f0;
         }
-      }
-  
-      .Header__dropdown {
-        margin-left: 1rem; /* Slight spacing between links and dropdown */
+
+        &.active {
+          font-weight: bold;
+          color: #000;
+          background: #f8f8f8;
+        }
       }
     }
-  
-    &__dropdown {
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .Header__icon-wrapper {
       position: relative;
-  
-      &-toggle {
-        background: none;
-        border: none;
+
+      .Header__icon {
+        height: 24px;
+        width: 24px;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        color: #333;
-        font-size: inherit; /* Inherit the 15px from parent */
-  
+        transition: opacity 0.2s ease;
+
         &:hover {
-          color: #000;
+          opacity: 0.7;
         }
       }
-  
-      &-icon {
-        font-size: 1.5rem;
-        margin-left: 2px;
-      }
-  
-      &-menu {
+
+      .Header__dropdown-menu {
         position: absolute;
         top: 100%;
-        left: 0;
-        margin-top: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 4px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         z-index: 10;
         min-width: 150px;
-      }
-  
-      &-item {
-        display: block;
-        padding: 0.5rem 1rem;
-        color: #333;
-        text-decoration: none;
-        font-size: inherit; /* Inherit the 15px from parent */
-  
-        &:hover {
-          background: #f0f0f0;
+
+        .Header__dropdown-item {
+          display: block;
+          padding: 0.5rem 1rem;
+          color: #333;
+          text-decoration: none;
+
+          &:hover {
+            background: #f0f0f0;
+          }
         }
       }
     }
-  
-    &__actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-  
-    &__icon {
-      height: 24px;
-      width: 24px;
-      cursor: pointer;
-      transition: opacity 0.2s ease;
-  
-      &:hover {
-        opacity: 0.7;
-      }
-    }
-  
-    &__login-btn {
+
+    .Header__login-btn {
       background-color: #e4dbc6;
       color: black;
       padding: 0.5rem 1rem;
       border-radius: 0px;
       text-decoration: none;
       font-weight: bold;
-      font-size: inherit; /* Inherit the 15px from parent */
+      font-size: inherit;
       transition: background-color 0.3s;
-  
+
       &:hover {
         background-color: #d4cbb3;
       }
     }
-  
-    /* Responsive Design */
-    @media (max-width: 768px) { /* Tablet and below */
-      display: flex;
+  }
+
+  /* Tablet and below */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    height: auto;
+
+    &__logo {
+      margin-bottom: 0.5rem;
+    }
+
+    &__nav {
       flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-  
-      &__logo {
-        margin-bottom: 1rem;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+
+      .Header__link,
+      .Header__dropdown-item {
+        font-size: 0.9em;
       }
-  
-      &__nav {
-        flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 1rem;
-  
-        .Header__link,
-        .Header__dropdown-toggle {
-          font-size: 0.9em; /* Relative to 15px, becomes ~13.5px */
-        }
-  
-        .Header__dropdown-menu {
-          position: static;
-          width: 100%;
-          box-shadow: none;
-          border: none;
-          background: transparent;
-        }
-  
-        .Header__dropdown-item {
-          padding: 0.5rem;
-          text-align: center;
-        }
+
+      .Header__dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        background: transparent;
       }
-  
-      &__actions {
-        flex-direction: row;
-        justify-content: center;
-        gap: 0.5rem;
-  
-        .Header__icon {
-          height: 20px;
-          width: 20px;
-        }
-  
-        .Header__login-btn {
-          padding: 0.3rem 0.8rem;
-          font-size: 0.9em; /* Relative to 15px, becomes ~13.5px */
-        }
+
+      .Header__dropdown-item {
+        padding: 0.5rem;
+        text-align: center;
       }
     }
-  
-    @media (max-width: 480px) { /* Mobile */
-      padding: 0.5rem;
-  
-      &__logo {
-        margin-bottom: 0.5rem;
+
+    &__actions {
+      flex-direction: row;
+      justify-content: center;
+      gap: 0.5rem;
+
+      .Header__icon {
+        height: 20px;
+        width: 20px;
       }
-  
-      &__nav {
-        gap: 0.5rem;
-  
-        .Header__link,
-        .Header__dropdown-toggle {
-          font-size: 0.8em; /* Relative to 15px, becomes ~12px */
-        }
-      }
-  
-      &__actions {
-        gap: 0.3rem;
-  
-        .Header__icon {
-          height: 18px;
-          width: 18px;
-        }
-  
-        .Header__login-btn {
-          padding: 0.2rem 0.6rem;
-          font-size: 0.8em; /* Relative to 15px, becomes ~12px */
-        }
+
+      .Header__login-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.9em;
       }
     }
   }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    padding: 0.25rem 0.5rem;
+    height: auto;
+
+    &__logo {
+      margin-bottom: 0.25rem;
+    }
+
+    &__nav {
+      gap: 0.5rem;
+
+      .Header__link,
+      .Header__dropdown-item {
+        font-size: 0.8em;
+      }
+    }
+
+    &__actions {
+      gap: 0.3rem;
+
+      .Header__icon {
+        height: 18px;
+        width: 18px;
+      }
+
+      .Header__login-btn {
+        padding: 0.2rem 0.6rem;
+        font-size: 0.8em;
+      }
+    }
+  }
+}

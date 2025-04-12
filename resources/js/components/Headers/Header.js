@@ -1,21 +1,45 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMessagesOpen, setIsMessagesOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const location = useLocation();
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const toggleDropdown = (e) => {
+    e.preventDefault();
+    setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleMessagesClick = () => {
-    alert("No messages at the moment.");
+  const toggleMessagesDropdown = () => {
+    setIsMessagesOpen((prev) => !prev);
+    setIsNotificationsOpen(false);
   };
 
-  const handleNotificationsClick = () => {
-    alert("No notifications at the moment.");
+  const toggleNotificationsDropdown = () => {
+    setIsNotificationsOpen((prev) => !prev);
+    setIsMessagesOpen(false);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+        setIsMessagesOpen(false);
+        setIsNotificationsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Close dropdown when route changes
+  useEffect(() => {
+    setIsDropdownOpen(false);
+  }, [location]);
 
   return (
     <header className="Header">
@@ -29,43 +53,58 @@ const Header = () => {
         </NavLink>
       </div>
 
-      <nav className="Header__nav">
-        <NavLink to="/homepage" className="Header__link">
+      <nav className="Header__nav" ref={dropdownRef}>
+        <NavLink 
+          to="/homepage" 
+          className={({ isActive }) => `Header__link${isActive ? " active" : ""}`}
+        >
           Home
         </NavLink>
-        <NavLink to="/services" className="Header__link">
+        <NavLink 
+          to="/services" 
+          className={({ isActive }) => `Header__link${isActive ? " active" : ""}`}
+        >
           Services
         </NavLink>
-        <NavLink to="/about" className="Header__link">
+        <NavLink 
+          to="/about" 
+          className={({ isActive }) => `Header__link${isActive ? " active" : ""}`}
+        >
           About Us
         </NavLink>
-        <NavLink to="/contact" className="Header__link">
+        <NavLink 
+          to="/contact" 
+          className={({ isActive }) => `Header__link${isActive ? " active" : ""}`}
+        >
           Contact Us
         </NavLink>
-        <div className="Header__dropdown">
-          <button onClick={toggleDropdown} className="Header__dropdown-toggle">
+
+        {/* Support Dropdown */}
+        <div className="Header__dropdown-wrapper">
+          <button 
+            onClick={toggleDropdown}
+            className={`Header__link ${isDropdownOpen ? "active" : ""}`}
+          >
             Support <RiArrowDropDownLine className="Header__dropdown-icon" />
           </button>
+
           {isDropdownOpen && (
             <div className="Header__dropdown-menu">
               <NavLink
                 to="/privacy-policy"
-                className="Header__dropdown-item"
-                onClick={() => setIsDropdownOpen(false)}
+                className={({ isActive }) => `Header__dropdown-item${isActive ? " active" : ""}`}
               >
                 Privacy Policy
               </NavLink>
               <NavLink
                 to="/terms-of-service"
-                className="Header__dropdown-item"
-                onClick={() => setIsDropdownOpen(false)}
+                className={({ isActive }) => `Header__dropdown-item${isActive ? " active" : ""}`}
               >
                 Terms of Service
               </NavLink>
               <NavLink
                 to="/faqs"
-                className="Header__dropdown-item"
-                onClick={() => setIsDropdownOpen(false)}
+                className={({ isActive }) => `Header__dropdown-item${isActive ? " active" : ""}`}
               >
                 FAQs
               </NavLink>
@@ -75,12 +114,34 @@ const Header = () => {
       </nav>
 
       <div className="Header__actions">
-        <NavLink to="#" onClick={handleMessagesClick}>
-          <img src="/images/messages.svg" alt="Messages" className="Header__icon" />
-        </NavLink>
-        <NavLink to="#" onClick={handleNotificationsClick}>
-          <img src="/images/notif.svg" alt="Notifications" className="Header__icon" />
-        </NavLink>
+        {/* Messages Icon and Dropdown */}
+        <div className="Header__icon-wrapper" onClick={toggleMessagesDropdown}>
+          <img
+            src="/images/messages.svg"
+            alt="Messages"
+            className="Header__icon"
+          />
+          {isMessagesOpen && (
+            <div className="Header__dropdown-menu">
+              <div className="Header__dropdown-item">No messages received</div>
+            </div>
+          )}
+        </div>
+
+        {/* Notifications Icon and Dropdown */}
+        <div className="Header__icon-wrapper" onClick={toggleNotificationsDropdown}>
+          <img
+            src="/images/notif.svg"
+            alt="Notifications"
+            className="Header__icon"
+          />
+          {isNotificationsOpen && (
+            <div className="Header__dropdown-menu">
+              <div className="Header__dropdown-item">No notifications today</div>
+            </div>
+          )}
+        </div>
+
         <NavLink to="/login" className="Header__login-btn">
           LOGIN
         </NavLink>

@@ -1,0 +1,158 @@
+.about-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.about-container {
+  flex: 1;
+  padding: 2rem 0;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.about-section {
+  .about-content {
+    flex: 1;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        position: relative;
+        padding-left: 1rem;
+        margin-bottom: 0.75rem;
+        color: #555;
+        line-height: 1.4;
+        font-size: 0.95rem;
+
+        &:before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          color: #333;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.mission-section {
+  .mission-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .mission-content {
+    flex: 1;
+  }
+}
+
+.vision-section {
+  .vision-content {
+    flex: 1;
+  }
+  .vision-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.story-section {
+  .story-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .story-content {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 1.5rem 0;
+
+    section {
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-image, 
+    .mission-image, 
+    .vision-image, 
+    .story-image {
+      order: -1;
+    }
+  }
+} 

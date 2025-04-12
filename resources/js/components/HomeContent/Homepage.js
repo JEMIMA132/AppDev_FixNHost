@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../Headers/Header"; // Adjust the path based on your project structure
+import Footer from "../Footers/Footer"; // Import Footer component
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -19,12 +20,12 @@ const Homepage = () => {
 
   return (
     <>
-      <Header /> {/* Added Header component here */}
+      <Header />
       <div className="homepage">
         <div className="hero-section">
           <h1 className="hero-title">Your One-Stop Wedding & Repair Services</h1>
           <p className="hero-subtitle">
-            Celebrate your special day or fix what’s broken with ease.
+            Celebrate your special day or fix what's broken with ease.
           </p>
           <button className="login-button" onClick={handleLoginRedirect}>
             Go to Login
@@ -36,7 +37,7 @@ const Homepage = () => {
             <h2>Wedding Services</h2>
             <p>
               Plan your dream wedding with our expert planners, decorators, and
-              vendors. From venues to catering, we’ve got you covered.
+              vendors. From venues to catering, we've got you covered.
             </p>
             <button className="book-button" onClick={handleBookWedding}>
               Book Wedding Service
@@ -55,6 +56,7 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
