@@ -1,4 +1,117 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+.homepage {
+    text-align: center;
+    padding: 20px;
+  
+    .hero-section {
+      background-color: #2d3748; /* Matches the dark theme of Laravel welcome page */
+      padding: 40px;
+      border-radius: 10px;
+      color: #e2e8f0; /* Light gray text */
+      margin-bottom: 30px;
+  
+      .hero-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #fff; /* White text for the title */
+      }
+  
+      .hero-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+        color: #cbd5e0; /* Slightly lighter gray */
+      }
+  
+      .login-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #718096; /* Gray to match the theme */
+        color: white;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #5a6e82;
+        }
+      }
+    }
+  
+    .services-section {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+  
+      .service-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 300px;
+        transition: transform 0.3s ease;
+  
+        &:hover {
+          transform: translateY(-5px);
+        }
+  
+        h2 {
+          font-size: 1.5rem;
+          margin-bottom: 10px;
+        }
+  
+        p {
+          font-size: 1rem;
+          color: #4a5568; /* Dark gray text */
+          margin-bottom: 15px;
+        }
+  
+        .book-button {
+          padding: 10px 20px;
+          font-size: 16px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          color: white;
+          transition: background-color 0.3s ease;
+        }
+      }
+  
+      .wedding-service {
+        border: 2px solid #f7cac9; /* Soft pink border for wedding theme */
+  
+        h2 {
+          color: #de6e6c; /* Pinkish-red for wedding theme */
+        }
+  
+        .book-button {
+          background-color: #de6e6c;
+  
+          &:hover {
+            background-color: #c65d5b;
+          }
+        }
+      }
+  
+      .repair-service {
+        border: 2px solid #a3bffa; /* Light blue border for repair theme */
+  
+        h2 {
+          color: #4a90e2; /* Blue for repair theme */
+        }
+  
+        .book-button {
+          background-color: #4a90e2;
+  
+          &:hover {
+            background-color: #3b7dd8;
+          }
+        }
+      }
+    }
+  }
 @charset "UTF-8";
 /*!
  * Bootstrap  v5.3.5 (https://getbootstrap.com/)
