@@ -1,26 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 
-
 const LoginForm = ({ onToggleForm }) => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // Simulate successful login
+    if (email && password) {
+      localStorage.setItem("isLoggedIn", "true");
+      navigate('/homepage'); // redirect after login
+    } else {
+      alert("Please enter email and password.");
+    }
+  };
+
   return (
     <div className="login-container">
       <h2>Welcome Back</h2>
       <p>Sign in to access your account</p>
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleLogin}>
         <div className="form-group">
           <label>Email Address</label>
-          <input type="email" placeholder="youremail@example.com" />
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
         <div className="form-group">
           <label>Password</label>
-          <input type="password" placeholder="••••••••" />
-          <a href="#" className="forgot-password">Forgot password?</a>
-        </div>
-        <div className="form-group checkbox">
-          <input type="checkbox" id="remember-me" />
-          <label htmlFor="remember-me">Remember me</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
         <button type="submit" className="sign-in-btn">Sign In</button>
       </form>

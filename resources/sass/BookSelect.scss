@@ -1,0 +1,174 @@
+// BookSelect.scss
+.book-select {
+    &__overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+  
+    &__content {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
+      @media (max-width: 500px) {
+        max-width: 90%;
+        padding: 15px;
+      }
+    }
+  
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+  
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+  
+        @media (max-width: 500px) {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  
+    &__close {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #666;
+      &:hover {
+        color: #333;
+      }
+  
+      @media (max-width: 500px) {
+        font-size: 1rem;
+      }
+    }
+  
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  
+    &__form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 100%;
+  
+      label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #333;
+  
+        @media (max-width: 500px) {
+          font-size: 0.9rem;
+        }
+      }
+  
+      input,
+      textarea {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #d9d9d9;
+        border-radius: 5px;
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+  
+        &:focus {
+          border-color: #0097B2;
+          box-shadow: 0 0 5px rgba(0, 151, 178, 0.2);
+        }
+  
+        @media (max-width: 500px) {
+          font-size: 0.9rem;
+          padding: 8px;
+        }
+      }
+  
+      textarea {
+        resize: vertical;
+      }
+    }
+  
+    &__form-row {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+      align-items: stretch;
+  
+      & > div {
+        flex: 1;
+      }
+  
+      @media (max-width: 500px) {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  
+    &__input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+  
+    &__icon {
+      position: absolute;
+      left: 10px;
+      font-size: 1rem;
+      color: #666;
+  
+      @media (max-width: 500px) {
+        font-size: 0.9rem;
+        left: 8px;
+      }
+    }
+  
+    &__input-wrapper input {
+      padding-left: 35px;
+  
+      @media (max-width: 500px) {
+        padding-left: 30px;
+      }
+    }
+  
+    &__submit-button {
+      background: #0097B2;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px; // Reduced padding for a smaller button
+      font-size: 1rem; // Reduced font size for a more standard look
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+  
+      &:hover {
+        background: #007a91;
+      }
+  
+      @media (max-width: 500px) {
+        font-size: 0.9rem;
+        padding: 6px 12px; // Further reduced for mobile
+      }
+    }
+  }

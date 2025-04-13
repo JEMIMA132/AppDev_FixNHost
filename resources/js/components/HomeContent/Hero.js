@@ -17,7 +17,13 @@ const Hero = () => {
   }, []);
 
   const handleBookService = () => {
-    navigate('/login', { state: { from: 'book-service' } });
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    if (isLoggedIn) {
+      navigate('/book'); // Redirect to the booking page if logged in
+    } else {
+      navigate('/login'); // Redirect to login page if not logged in
+    }
   };
 
   const handleBecomeVendor = () => {
