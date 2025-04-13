@@ -1,0 +1,125 @@
+// OurLeader.scss
+.our-leader {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background-color: #f5f7fa; // Light background to match your project
+  
+    &__header {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+  
+      h2 {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #1f2937;
+        margin-bottom: 1rem;
+      }
+  
+      p {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1.1rem;
+        color: #4b5563;
+        line-height: 1.6;
+      }
+    }
+  
+    &__team {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    &__top-row,
+    &__bottom-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+  
+    &__bottom-row {
+      justify-content: space-around; // Space the two members evenly
+    }
+  
+    &__member {
+      flex: 1;
+      max-width: 300px; // Limit the width of each member card
+      text-align: center;
+  
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%; // Circular images
+        object-fit: cover;
+        margin-bottom: 1rem;
+      }
+  
+      h3 {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+      }
+  
+      .title {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #0097B2; // Match your project's accent color
+        margin-bottom: 0.5rem;
+      }
+  
+      p {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 0.9rem;
+        color: #4b5563;
+        line-height: 1.6;
+      }
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .our-leader {
+      padding: 2rem 1rem;
+  
+      &__header {
+        h2 {
+          font-size: 2rem;
+        }
+  
+        p {
+          font-size: 1rem;
+        }
+      }
+  
+      &__top-row,
+      &__bottom-row {
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+  
+      &__member {
+        max-width: 100%; // Full width on mobile
+  
+        img {
+          width: 120px;
+          height: 120px;
+        }
+  
+        h3 {
+          font-size: 1.2rem;
+        }
+  
+        .title {
+          font-size: 0.9rem;
+        }
+  
+        p {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }

@@ -1,0 +1,100 @@
+/* Import Albert Sans from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;700&display=swap');
+
+.primary {
+  padding: 4rem 2rem 6rem;
+  background-color: #ffffff;
+  font-family: 'Albert Sans', sans-serif;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    display: flex;
+    gap: 4rem;
+    align-items: stretch; /* Ensure both sections stretch to match heights */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__image-container {
+    flex: 1;
+    max-width: 500px;
+    height: 630px; /* Fixed height for the image */
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover; /* Ensure image fills space without distortion */
+  }
+
+  &__steps {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-height: 500px; /* Match the image height on desktop */
+    height: auto; /* Allow it to grow if content exceeds min-height */
+  }
+
+  &__step {
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.5;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .primary {
+    padding: 2rem 1rem 4rem;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    &__content {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &__image-container {
+      max-width: 100%;
+      height: 300px; /* Fixed height for mobile */
+    }
+
+    &__steps {
+      min-height: auto; /* Let steps take natural height on mobile */
+      gap: 1.5rem;
+    }
+
+    &__step {
+      h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

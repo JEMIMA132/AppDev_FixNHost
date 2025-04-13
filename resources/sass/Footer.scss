@@ -1,0 +1,153 @@
+/* Import Albert Sans from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;700&display=swap');
+
+.footer {
+  background-color: #1a2526; /* Dark background matching screenshot */
+  color: #ffffff;
+  padding: 4rem 2rem 2rem;
+  font-family: 'Albert Sans', sans-serif;
+
+  &__content {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  &__section {
+    flex: 1;
+    min-width: 200px;
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 1rem;
+
+        a {
+          color: #ffffff;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #0097b2; /* Matches link color from other sections */
+          }
+        }
+      }
+    }
+  }
+
+  &__brand {
+    p {
+      font-size: 1rem;
+      color: #cccccc;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+  }
+
+  &__logo {
+    height: 30px; /* Matches header logo size */
+    margin-bottom: 1.5rem;
+  }
+
+  &__social {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.25rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #0097b2;
+      }
+    }
+
+    .footer__social-icon {
+      display: inline-block;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid #ffffff20; /* Subtle divider */
+    font-size: 0.9rem;
+    color: #cccccc;
+
+    p {
+      margin: 0;
+    }
+
+    &-links {
+      display: flex;
+      gap: 1.5rem;
+
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #0097b2;
+        }
+      }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1rem;
+
+    &__content {
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    &__section {
+      h3 {
+        font-size: 1.1rem;
+      }
+
+      ul li a {
+        font-size: 0.9rem;
+      }
+    }
+
+    &__brand {
+      p {
+        font-size: 0.9rem;
+      }
+    }
+
+    &__bottom {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+
+      &-links {
+        gap: 1rem;
+      }
+    }
+  }
+}

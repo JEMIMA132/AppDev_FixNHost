@@ -1,0 +1,170 @@
+// Policy.scss
+.policy {
+    padding: 4rem 1.5rem;
+    text-align: left;
+    background-color: transparent;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: -2rem; // Reduced overlap to minimize interference with header
+    position: relative;
+    z-index: 0; // Keep z-index low to stay below header
+  
+    &__header {
+      text-align: left;
+      margin-bottom: 3rem;
+      padding-top: 5rem; // Increased padding to ensure content isn’t hidden under header
+  
+      h2 {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #0097B2;
+        margin-bottom: 0.5rem;
+      }
+  
+      .last-updated {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1rem;
+        color: #0097B2;
+        font-style: italic;
+      }
+    }
+  
+    &__content {
+      margin-bottom: 3rem;
+  
+      h3 {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 2rem 0 1rem;
+      }
+  
+      p {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1.1rem;
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+  
+      ul {
+        list-style-type: none;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+  
+        li {
+          font-family: 'Albert Sans', sans-serif;
+          font-size: 1.1rem;
+          color: #4b5563;
+          line-height: 1.6;
+          margin-bottom: 0.5rem;
+          position: relative;
+  
+          &:before {
+            content: '•';
+            color: #0097B2;
+            font-size: 1.5rem;
+            position: absolute;
+            left: -1rem;
+          }
+  
+          strong {
+            color: #1f2937;
+          }
+        }
+      }
+    }
+  
+    &__contact {
+      background-color: #e6f0fa;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+  
+      p {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1rem;
+        color: #4b5563;
+        margin-bottom: 0.5rem;
+  
+        strong {
+          color: #1f2937;
+        }
+      }
+    }
+  
+    &__return {
+      text-align: center;
+      margin-top: 3rem;
+  
+      .return-button {
+        padding: 0.75rem 2rem;
+        background-color: transparent;
+        border: 2px solid #0097B2;
+        border-radius: 5px;
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1rem;
+        color: #0097B2;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+  
+        &:hover {
+          background-color: #0097B2;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .policy {
+      padding: 2rem 1rem;
+      margin-top: -1rem; // Further reduced overlap for mobile
+  
+      &__header {
+        padding-top: 4rem; // Adjusted padding for mobile
+  
+        h2 {
+          font-size: 2rem;
+        }
+  
+        .last-updated {
+          font-size: 0.9rem;
+        }
+      }
+  
+      &__content {
+        h3 {
+          font-size: 1.5rem;
+        }
+  
+        p {
+          font-size: 1rem;
+        }
+  
+        ul {
+          li {
+            font-size: 1rem;
+          }
+        }
+      }
+  
+      &__contact {
+        padding: 1rem;
+  
+        p {
+          font-size: 0.9rem;
+        }
+      }
+  
+      &__return {
+        .return-button {
+          padding: 0.5rem 1.5rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }

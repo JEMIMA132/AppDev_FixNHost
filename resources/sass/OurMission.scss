@@ -1,0 +1,111 @@
+// OurMission.scss
+.our-mission {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background-color: #f5f7fa; // Light background to match your project
+  
+    &__header {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+  
+      h2 {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #1f2937;
+        margin-bottom: 1rem;
+      }
+  
+      p {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1.2rem;
+        color: #4b5563;
+        line-height: 1.6;
+      }
+    }
+  
+    &__values {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    &__value {
+      flex: 1;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(0, 151, 178, 0.05) 0%, rgba(255, 255, 255, 0.8) 100%); // Subtle gradient background
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 12px rgba(0, 151, 178, 0.2); // Hover effect with a glow
+      }
+  
+      .value-icon {
+        font-size: 3rem; // Larger icons
+        color: #0097B2; // Match your project's accent color
+        margin-bottom: 1rem;
+        transition: color 0.3s ease;
+  
+        &:hover {
+          color: #007A8F; // Slightly darker shade on hover
+        }
+      }
+  
+      h3 {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.75rem;
+      }
+  
+      p {
+        font-family: 'Albert Sans', sans-serif;
+        font-size: 1rem;
+        color: #4b5563;
+        line-height: 1.6;
+      }
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .our-mission {
+      padding: 2rem 1rem;
+  
+      &__header {
+        h2 {
+          font-size: 2rem;
+        }
+  
+        p {
+          font-size: 1rem;
+        }
+      }
+  
+      &__values {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+  
+      &__value {
+        padding: 1.5rem;
+  
+        .value-icon {
+          font-size: 2.5rem;
+        }
+  
+        h3 {
+          font-size: 1.3rem;
+        }
+  
+        p {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }

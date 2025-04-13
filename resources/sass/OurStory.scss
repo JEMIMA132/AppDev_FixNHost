@@ -1,0 +1,62 @@
+// OurStory.scss
+.our-story {
+    display: flex;
+    align-items: center;
+    gap: 3rem; // Increased gap for a more spacious look
+    max-width: 1400px; // Increased max-width to make the section larger
+    margin: 0 auto;
+    padding: 3rem 1.5rem; // Increased padding for more space
+  
+    &__image {
+      flex: 1;
+      img {
+        width: 100%;
+        height: 400px; // Increased height to make the image larger
+        object-fit: cover;
+        border-radius: 10px; // Kept rounded corners for the image
+      }
+    }
+  
+    &__content {
+      flex: 1;
+      h2 {
+        font-family: 'Albert Sans', sans-serif; // Match the font from your project
+        font-size: 2.5rem; // Increased font size to match the example
+        font-weight: bold;
+        color: #1f2937; // Dark color for contrast
+        margin-bottom: 1.5rem; // Increased margin for spacing
+      }
+  
+      p {
+        font-family: 'Albert Sans', sans-serif; // Match the font from your project
+        font-size: 1.2rem; // Increased font size to match the example
+        color: #4b5563; // Slightly lighter color for the text
+        line-height: 1.6;
+      }
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .our-story {
+      flex-direction: column;
+      padding: 2rem 1rem;
+      gap: 2rem;
+  
+      &__image {
+        img {
+          height: 250px; // Adjusted for mobile
+        }
+      }
+  
+      &__content {
+        h2 {
+          font-size: 2rem;
+        }
+  
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+  }

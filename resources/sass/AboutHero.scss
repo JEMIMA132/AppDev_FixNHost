@@ -1,0 +1,47 @@
+// AboutHero.scss
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&display=swap'); // Import Albert Sans
+
+.about-hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(180deg, rgba(0, 151, 178, 0.1) 0%, white 100%); // Same gradient as ServicesHero
+  border-radius: 10px;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-family: 'Albert Sans', sans-serif; // Match the font from Header.scss
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1f2937; // Dark color for contrast
+    margin-bottom: 1rem;
+
+    .highlight {
+      font-weight: bold; // Already bold, but ensures "FixNHost" stands out
+    }
+  }
+
+  p {
+    font-family: 'Albert Sans', sans-serif; // Match the font from Header.scss
+    font-size: 1.1rem;
+    font-weight: 400; // Regular weight to match the image
+    color: #4b5563; // Slightly lighter color for the subheading
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5; // Match the line spacing from the image
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 2rem 1rem;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}
