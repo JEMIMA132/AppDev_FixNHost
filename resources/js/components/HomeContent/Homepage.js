@@ -1,57 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../Headers/Header"; // Adjust the path based on your project structure
+import Header from "../Headers/Header"; // Adjust path if needed
+
+const images = [
+  "/images/event1.svg",
+  "/images/event2.svg",
+  "/images/event3.svg"
+];
 
 const Homepage = () => {
   const navigate = useNavigate();
+  const [currentImage, setCurrentImage] = useState(0);
 
-  const handleBookWedding = () => {
-    alert("Book Wedding Service clicked! Add your booking logic here.");
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 3000); // Change every 3s
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleBookService = () => {
+    // Redirect to login page with intent to book a service
+    navigate("/login", { state: { from: "book-service" } });
   };
 
-  const handleBookRepair = () => {
-    alert("Book Repair Service clicked! Add your booking logic here.");
-  };
-
-  const handleLoginRedirect = () => {
-    navigate("/login");
+  const handleBecomeVendor = () => {
+    // Redirect to login page with intent to become a vendor
+    navigate("/login", { state: { from: "become-vendor" } });
   };
 
   return (
     <>
-      <Header /> {/* Added Header component here */}
-      <div className="homepage">
-        <div className="hero-section">
-          <h1 className="hero-title">Your One-Stop Wedding & Repair Services</h1>
-          <p className="hero-subtitle">
-            Celebrate your special day or fix what’s broken with ease.
+      <Header />
+      <div className="hero-full-slider">
+        <img
+          src={images[currentImage]}
+          alt="Event or Repair"
+          className="background-image"
+        />
+        <div className="hero-overlay">
+          <h1>Your Go-To Platform for<br />Repairs & Events</h1>
+          <p>
+            Book trusted home repair experts or plan your perfect event — all in one place.
           </p>
-          <button className="login-button" onClick={handleLoginRedirect}>
-            Go to Login
-          </button>
-        </div>
-
-        <div className="services-section">
-          <div className="service-card wedding-service">
-            <h2>Wedding Services</h2>
-            <p>
-              Plan your dream wedding with our expert planners, decorators, and
-              vendors. From venues to catering, we’ve got you covered.
-            </p>
-            <button className="book-button" onClick={handleBookWedding}>
-              Book Wedding Service
-            </button>
-          </div>
-
-          <div className="service-card repair-service">
-            <h2>Repair Services</h2>
-            <p>
-              Need something fixed? Our skilled technicians handle everything from
-              appliances to vehicles with precision and care.
-            </p>
-            <button className="book-button" onClick={handleBookRepair}>
-              Book Repair Service
-            </button>
+          <div className="hero-buttons">
+            <button onClick={handleBookService}>Book a Service</button>
+            <button onClick={handleBecomeVendor}>Become a Vendor</button>
           </div>
         </div>
       </div>

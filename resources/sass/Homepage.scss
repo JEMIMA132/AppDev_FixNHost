@@ -1,113 +1,78 @@
-.homepage {
-  text-align: center;
-  padding: 20px;
+.hero-full-slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 
-  .hero-section {
-    background-color: #2d3748;
-    padding: 40px;
-    border-radius: 10px;
-    color: #e2e8f0;
-    margin-bottom: 30px;
-
-    .hero-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-
-    .hero-subtitle {
-      font-size: 1.25rem;
-      margin-bottom: 20px;
-      color: #cbd5e0;
-    }
-
-    .login-button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background-color: #718096;
-      color: white;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: #5a6e82;
-      }
-    }
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+    z-index: 1;
   }
 
-  .services-section {
+  .hero-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); // semi-transparent overlay
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    color: #fff;
 
-    .service-card {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      width: 300px;
-      transition: transform 0.3s ease;
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
 
-      &:hover {
-        transform: translateY(-5px);
+      @media (max-width: 768px) {
+        font-size: 2rem;
       }
+    }
 
-      h2 {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-      }
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      color: #ddd;
 
-      p {
+      @media (max-width: 768px) {
         font-size: 1rem;
-        color: #4a5568;
-        margin-bottom: 15px;
+        padding: 0 1rem;
       }
+    }
 
-      .book-button {
-        padding: 10px 20px;
-        font-size: 16px;
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      button {
+        background: #fff;
+        color: #000;
         border: none;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 500;
         border-radius: 5px;
         cursor: pointer;
-        color: white;
-        transition: background-color 0.3s ease;
-      }
-    }
-
-    .wedding-service {
-      border: 2px solid #f7cac9;
-
-      h2 {
-        color: #de6e6c;
-      }
-
-      .book-button {
-        background-color: #de6e6c;
+        transition: 0.3s ease;
 
         &:hover {
-          background-color: #c65d5b;
-        }
-      }
-    }
-
-    .repair-service {
-      border: 2px solid #a3bffa;
-
-      h2 {
-        color: #4a90e2;
-      }
-
-      .book-button {
-        background-color: #4a90e2;
-
-        &:hover {
-          background-color: #3b7dd8;
+          background-color: #e0e0e0;
         }
       }
     }
   }
 }
+    

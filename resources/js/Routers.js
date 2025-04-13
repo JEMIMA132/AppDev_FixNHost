@@ -1,15 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Header from "./components/Headers/Header";
 import Homepage from "./components/HomeContent/Homepage";
+import Login from "./components/LoginContents/Login";
+import Signup from "./components/LoginContents/Signup";
+import LandingPage from "./components/LoginContents/Landingpage";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/homepage" replace />} />
+        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<Navigate to="/landing" replace />} />
         <Route path="/homepage" element={<Homepage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
         {/* Routes for navigation (no component rendering) */}
         <Route path="/services" element={<></>} />
@@ -18,10 +23,9 @@ const App = () => {
         <Route path="/privacy-policy" element={<></>} />
         <Route path="/terms-of-service" element={<></>} />
         <Route path="/faqs" element={<></>} />
-        <Route path="/login" element={<></>} />
 
         {/* Catch-all redirect */}
-        <Route path="*" element={<Navigate to="/homepage" replace />} />
+        <Route path="*" element={<Navigate to="/landing" replace />} />
       </Routes>
     </Router>
   );
