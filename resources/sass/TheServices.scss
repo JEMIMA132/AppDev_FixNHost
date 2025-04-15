@@ -1,61 +1,59 @@
-// TheServices.scss
 .the-services {
   padding: 2rem 1.5rem;
-  background-color: #f5f7fa; // Light background to match the image
+  background-color: #f8fafc; // Softer background for a cleaner look
 
   &__header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
-  &__tabs {
-    display: flex;
-    gap: 1rem;
-
-    .tab {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 20px;
-      background-color: #e0e7ff;
-      color: #4b5563;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &.active {
-        background-color: #0097B2;
-        color: white;
-      }
-
-      &:hover {
-        background-color: #bfdbfe;
-      }
-    }
-  }
-
-  &__filter {
+  &__filter-dropdown {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid #d1d5db;
-    border-radius: 20px;
+    position: relative;
     background-color: white;
-    color: #4b5563;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    padding: 0.4rem 0.8rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+    width: fit-content;
 
     &:hover {
-      background-color: #f5f5f5;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .filter-icon {
+    font-size: 1rem;
+    color: #2d3748;
+    transition: color 0.3s ease;
+  }
+
+  &__dropdown {
+    padding: 0.4rem 1.5rem 0.4rem 0.4rem;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #2d3748;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    appearance: none; // Remove default dropdown arrow
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%232d3748' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.4rem center;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #0097B2;
     }
 
-    svg {
-      font-size: 1rem;
+    &:focus {
+      outline: none;
+      color: #0097B2;
     }
   }
 
@@ -63,77 +61,77 @@
     margin-bottom: 3rem;
 
     h3 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #1f2937;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1a202c;
       margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
     }
   }
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.75rem;
   }
 
   .service-card {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     height: 100%;
 
     &:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
 
     &__image {
       width: 100%;
-      height: 150px;
+      height: 160px;
       object-fit: cover;
     }
 
     h4 {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #1f2937;
-      margin: 1rem 1rem 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a202c;
+      margin: 1rem 1.25rem 0.5rem;
     }
 
     p {
-      font-size: 0.9rem;
-      color: #4b5563;
-      margin: 0 1rem 1rem;
-      line-height: 1.4;
+      font-size: 0.95rem;
+      color: #4a5568;
+      margin: 0 1.25rem 1rem;
+      line-height: 1.5;
       flex-grow: 1;
       min-height: 60px;
     }
 
-    &__price {
-      font-size: 1rem;
-      font-weight: 500;
-      color: #1f2937;
-      margin: 0 1rem 1rem;
-    }
-
     &__button {
-      width: calc(100% - 2rem);
-      margin: 0 1rem 1rem;
-      padding: 0.75rem;
+      width: calc(100% - 2.5rem);
+      margin: 0 1.25rem 1.25rem;
+      padding: 0.85rem;
       background-color: #0097B2;
       color: white;
       border: none;
       border-radius: 8px;
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
 
       &:hover {
         background-color: #007A8F;
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
       }
     }
   }
@@ -145,16 +143,16 @@
     padding: 1.5rem 1rem;
 
     &__header {
-      flex-direction: column;
-      gap: 1rem;
+      justify-content: flex-end;
     }
 
-    &__tabs {
-      justify-content: center;
+    &__filter-dropdown {
+      width: 100%;
+      max-width: 200px;
     }
 
     &__grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
   }
 }

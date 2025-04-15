@@ -1,0 +1,56 @@
+.become-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+
+  h1 {
+    font-size: 2rem; /* Reduced from 2.5rem */
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1rem; /* Reduced from 1.2rem */
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+
+  &__tabs {
+    display: flex;
+    gap: 8px;
+  }
+
+  .tab-button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem; /* Reduced from 0.9rem */
+    font-weight: 500;
+    border: 2px solid #0097B2;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #0097B2;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &.active {
+      background-color: #0097B2;
+      color: #fff;
+    }
+
+    &:hover {
+      background-color: #e6f0fa;
+    }
+
+    .icon {
+      font-size: 0.9rem; /* Reduced from 1rem */
+    }
+  }
+}

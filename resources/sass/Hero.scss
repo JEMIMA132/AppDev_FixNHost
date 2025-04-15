@@ -66,8 +66,8 @@
     margin-top: 3rem; /* Increased space before buttons */
 
     .hero__button {
-      background: #0097b2; /* New button color */
-      color: #ffffff; /* Black text */
+      display: flex;
+      align-items: center; /* Center icon and text vertically */
       border: none;
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
@@ -77,8 +77,38 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
 
-      &:hover {
-        background-color: #007a8e; /* Slightly darker shade of #0097b2 for hover */
+      svg {
+        margin-right: 0.5rem; /* Space between icon and text (already added in JSX, but this ensures consistency) */
+      }
+
+      /* First button: "Book a Service" (matches "Find Fix Services") */
+      &:nth-child(1) {
+        background: #0097B2; /* Blue color from the image */
+        color: #ffffff;
+
+        &:hover {
+          background-color: #0097B2; /* Darker blue on hover */
+        }
+      }
+
+      /* Second button: "Become a Vendor" (matches "Become a Provider") */
+      &:nth-child(2) {
+        background: #f5f5f5; /* Light gray color from the image */
+        color: #000000;
+
+        &:hover {
+          background-color: #e0e0e0; /* Slightly darker gray on hover */
+        }
+      }
+
+      /* Optional third button: "Find Host Services" (if you add it) */
+      &:nth-child(3) {
+        background: #00c4b4; /* Teal color from the image */
+        color: #ffffff;
+
+        &:hover {
+          background-color: #00a094; /* Darker teal on hover */
+        }
       }
     }
   }

@@ -1,0 +1,310 @@
+.choosemain-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.choosemain {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  flex: 1;
+  box-sizing: border-box;
+  position: relative; /* For positioning choosemain__right */
+}
+
+.choosemain__header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.choosemain__left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 70%; /* Limit width to leave space for choosemain__right */
+}
+
+.choosemain__back {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #4b5563;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #0097B2;
+  }
+
+  .back-icon {
+    font-size: 1.4rem;
+  }
+}
+
+.choosemain__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+.choosemain__description {
+  font-size: 1.2rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+}
+
+.choosemain__right {
+  position: absolute;
+  top: 10rem; /* Position below the description */
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 25%; /* Fixed width for the right section */
+}
+
+.choosemain__filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%; /* Ensure it takes the full width of the container */
+
+  .choosemain__filter-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1a202c;
+  }
+
+  .choosemain__filter-select {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #4a5568;
+    background-color: #f1f5f9;
+    cursor: pointer;
+    width: 100%; /* Ensure the dropdown takes full width */
+  }
+}
+
+.choosemain__results {
+  font-size: 1rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+  text-align: right;
+  width: 100%;
+}
+
+.choosemain__vendor-list {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
+}
+
+.choosemain__vendor-card {
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex: 0 0 250px;
+  min-width: 250px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 350px; /* Increased min-height to accommodate content */
+  box-sizing: border-box;
+}
+
+.choosemain__vendor-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .choosemain__vendor-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #d1d5db; /* Subtle border for polish */
+  }
+
+  .choosemain__vendor-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0;
+  }
+
+  .choosemain__vendor-location {
+    font-size: 0.95rem;
+    color: #4a5568;
+    margin: 0;
+  }
+
+  .choosemain__vendor-rating {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #f59e0b;
+
+    .choosemain__vendor-star {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.choosemain__vendor-description {
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Increased to 4 lines for better visibility */
+  -webkit-box-orient: vertical;
+}
+
+.choosemain__vendor-services {
+  font-size: 0.9rem;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0; /* Prevent services from shrinking */
+
+  .choosemain__vendor-services-label {
+    font-weight: 500;
+    color: #1a202c;
+  }
+
+  .choosemain__vendor-service {
+    color: #4a5568;
+  }
+
+  .choosemain__vendor-service-more {
+    color: #0097B2;
+    font-weight: 500;
+  }
+}
+
+.choosemain__vendor-book-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #0097B2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  flex-shrink: 0; /* Ensure button doesn't shrink */
+
+  &:hover {
+    background-color: #007A8F;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .choosemain__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .choosemain__left {
+    max-width: 100%;
+  }
+
+  .choosemain__right {
+    position: static;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .choosemain__results {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .choosemain {
+    padding: 2rem 1rem;
+
+    &__title {
+      font-size: 1.8rem;
+    }
+
+    &__description {
+      font-size: 1rem;
+    }
+
+    &__filter {
+      gap: 0.5rem;
+      
+      .choosemain__filter-label {
+        font-size: 0.9rem;
+      }
+
+      .choosemain__filter-select {
+        padding: 0.4rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    &__results {
+      font-size: 0.9rem;
+    }
+
+    &__vendor-list {
+      flex-direction: column;
+      overflow-x: visible;
+      scroll-snap-type: none;
+    }
+
+    &__vendor-card {
+      flex: 1;
+      min-width: 100%;
+      min-height: auto; /* Allow height to adjust dynamically */
+      margin-bottom: 1rem;
+
+      .choosemain__vendor-description {
+        -webkit-line-clamp: unset; /* Remove line clamp for mobile */
+        overflow: visible;
+        text-overflow: unset;
+        display: block; /* Normal text flow */
+      }
+
+      .choosemain__vendor-image {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}

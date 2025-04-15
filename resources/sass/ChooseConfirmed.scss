@@ -1,5 +1,4 @@
-// BookConfirmed.scss
-.book-confirmed {
+.choose-confirmed {
     &__overlay {
       position: fixed;
       top: 0;
@@ -18,7 +17,7 @@
       border-radius: 10px;
       padding: 30px;
       width: 90%;
-      max-width: 400px; // Smaller width for a simple confirmation popup
+      max-width: 400px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       text-align: center;
   
@@ -29,7 +28,7 @@
     }
   
     &__icon-wrapper {
-      background: #e6ffed; // Light green background for the checkmark
+      background: #e6ffed;
       border-radius: 50%;
       width: 60px;
       height: 60px;
@@ -41,7 +40,7 @@
   
     &__icon {
       font-size: 2rem;
-      color: #28a745; // Green color for the checkmark
+      color: #28a745;
     }
   
     h3 {
@@ -66,18 +65,18 @@
     }
   
     &__button {
-      background: #1a2a44; // Dark color to match the design
+      background: #0097B2;
       color: #fff;
       border: none;
       border-radius: 8px;
-      padding: 8px 16px; // Standard button size
-      font-size: 1rem; // Standard font size
+      padding: 8px 16px;
+      font-size: 1rem;
       font-weight: 500;
       cursor: pointer;
       transition: background 0.3s ease;
   
       &:hover {
-        background: #0f1a2f; // Slightly darker shade for hover
+        background: #007a91;
       }
   
       @media (max-width: 500px) {

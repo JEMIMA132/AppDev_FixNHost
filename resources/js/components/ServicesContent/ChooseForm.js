@@ -1,17 +1,15 @@
-// BookSelect.js
 import React, { useState } from 'react';
-import { FaCalendarAlt, FaClock } from 'react-icons/fa'; // Import React Icons for date and time
+import { FaCalendarAlt, FaClock } from 'react-icons/fa';
 
-
-const BookSelect = ({ vendorName, serviceName, onSubmit, onClose }) => {
+const ChooseForm = ({ eventName, venueName, onSubmit, onClose }) => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
-    address: '',
-    serviceDate: '',
-    preferredTime: '',
-    description: '',
+    eventLocation: '',
+    eventDate: '',
+    eventTime: '',
+    details: '',
   });
 
   const handleChange = (e) => {
@@ -25,14 +23,14 @@ const BookSelect = ({ vendorName, serviceName, onSubmit, onClose }) => {
   };
 
   return (
-    <div className="book-select__overlay">
-      <div className="book-select__content">
-        <div className="book-select__header">
-          <h3>Book {vendorName} - {serviceName}</h3>
-          <button className="book-select__close" onClick={onClose}>✕</button>
+    <div className="choose-form__overlay">
+      <div className="choose-form__content">
+        <div className="choose-form__header">
+          <h3>Plan {eventName} at {venueName}</h3>
+          <button className="choose-form__close" onClick={onClose}>✕</button>
         </div>
-        <form onSubmit={handleSubmit} className="book-select__form">
-          <div className="book-select__form-group">
+        <form onSubmit={handleSubmit} className="choose-form__form">
+          <div className="choose-form__form-group">
             <label>Full Name</label>
             <input
               type="text"
@@ -43,8 +41,8 @@ const BookSelect = ({ vendorName, serviceName, onSubmit, onClose }) => {
               required
             />
           </div>
-          <div className="book-select__form-row">
-            <div className="book-select__form-group">
+          <div className="choose-form__form-row">
+            <div className="choose-form__form-group">
               <label>Email</label>
               <input
                 type="email"
@@ -55,7 +53,7 @@ const BookSelect = ({ vendorName, serviceName, onSubmit, onClose }) => {
                 required
               />
             </div>
-            <div className="book-select__form-group">
+            <div className="choose-form__form-group">
               <label>Phone</label>
               <input
                 type="tel"
@@ -67,58 +65,58 @@ const BookSelect = ({ vendorName, serviceName, onSubmit, onClose }) => {
               />
             </div>
           </div>
-          <div className="book-select__form-group">
-            <label>Service Address</label>
+          <div className="choose-form__form-group">
+            <label>Event Location</label>
             <input
               type="text"
-              name="address"
-              value={formData.address}
+              name="eventLocation"
+              value={formData.eventLocation}
               onChange={handleChange}
               placeholder="123 Main St, City, State, ZIP"
               required
             />
           </div>
-          <div className="book-select__form-row">
-            <div className="book-select__form-group">
-              <label>Service Date</label>
-              <div className="book-select__input-wrapper">
-                <FaCalendarAlt className="book-select__icon" />
+          <div className="choose-form__form-row">
+            <div className="choose-form__form-group">
+              <label>Event Date</label>
+              <div className="choose-form__input-wrapper">
+                <FaCalendarAlt className="choose-form__icon" />
                 <input
                   type="date"
-                  name="serviceDate"
-                  value={formData.serviceDate}
+                  name="eventDate"
+                  value={formData.eventDate}
                   onChange={handleChange}
                   required
                 />
               </div>
             </div>
-            <div className="book-select__form-group">
-              <label>Preferred Time</label>
-              <div className="book-select__input-wrapper">
-                <FaClock className="book-select__icon" />
+            <div className="choose-form__form-group">
+              <label>Event Time</label>
+              <div className="choose-form__input-wrapper">
+                <FaClock className="choose-form__icon" />
                 <input
                   type="time"
-                  name="preferredTime"
-                  value={formData.preferredTime}
+                  name="eventTime"
+                  value={formData.eventTime}
                   onChange={handleChange}
                   required
                 />
               </div>
             </div>
           </div>
-          <div className="book-select__form-group">
-            <label>Service Description</label>
+          <div className="choose-form__form-group">
+            <label>Event Details</label>
             <textarea
-              name="description"
-              value={formData.description}
+              name="details"
+              value={formData.details}
               onChange={handleChange}
-              placeholder="Please describe what service you need..."
+              placeholder="Please describe your event requirements..."
               rows="4"
               required
             />
           </div>
-          <button type="submit" className="book-select__submit-button">
-            Submit Booking
+          <button type="submit" className="choose-form__submit-button">
+            Submit Plan
           </button>
         </form>
       </div>
@@ -126,4 +124,4 @@ const BookSelect = ({ vendorName, serviceName, onSubmit, onClose }) => {
   );
 };
 
-export default BookSelect;
+export default ChooseForm;

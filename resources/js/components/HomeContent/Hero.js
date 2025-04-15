@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaUserPlus } from 'react-icons/fa';
 
 const images = [
   '/images/slide 1.svg',
@@ -16,18 +17,8 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleBookService = () => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-
-    if (isLoggedIn) {
-      navigate('/book'); // Redirect to the booking page if logged in
-    } else {
-      navigate('/login'); // Redirect to login page if not logged in
-    }
-  };
-
   const handleBecomeVendor = () => {
-    navigate('/login', { state: { from: 'become-vendor' } });
+    navigate('/become'); // Updated to navigate to /become
   };
 
   return (
@@ -39,14 +30,16 @@ const Hero = () => {
       />
       <div className="hero__overlay">
         <h1>
-          Your Go-To Platform for<br />Repairs & Events
+          Your Go-To Platform for<br /><span className="highlight-repairs">Repairs</span> & <span className="highlight-events">Events</span>
         </h1>
         <p>
           Book trusted home repair experts or plan your perfect event — all in one place.
         </p>
         <div className="hero__buttons">
-          <button onClick={handleBookService} className="hero__button">Book a Service</button>
-          <button onClick={handleBecomeVendor} className="hero__button">Become a Vendor</button>
+          <button onClick={handleBecomeVendor} className="hero__button">
+            <FaUserPlus style={{ marginRight: '8px' }} /> {/* Person icon for Become a Vendor */}
+            Become a Vendor
+          </button>
         </div>
       </div>
     </section>
