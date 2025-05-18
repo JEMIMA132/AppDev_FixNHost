@@ -1,0 +1,107 @@
+.settings-form {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 80px;
+    &__field {
+      margin-bottom: 20px;
+  
+      label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #333;
+      }
+  
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: #fff;
+        color: #333;
+  
+        &::placeholder {
+          color: #aaa;
+        }
+      }
+    }
+  
+    &__password-wrapper {
+      position: relative;
+    }
+  
+    &__toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #666;
+      padding: 0;
+  
+      &:hover {
+        color: #333;
+      }
+    }
+  
+    &__actions {
+      display: flex;
+      gap: 15px;
+      justify-content: flex-end;
+      margin-top: 30px;
+    }
+  
+    &__button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+  
+      &--cancel {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        color: #333;
+  
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+  
+      &--change {
+        background-color: #0097B2;
+        border: none;
+        color: #fff;
+  
+        &:hover {
+          background-color: #007a91;
+        }
+      }
+    }
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .settings-form {
+        margin-top: 30px;
+      &__field {
+        label {
+          font-size: 13px;
+        }
+  
+        input {
+          font-size: 14px;
+          padding: 10px;
+        }
+      }
+  
+      &__button {
+        font-size: 14px;
+        padding: 8px 15px;
+      }
+    }
+  }

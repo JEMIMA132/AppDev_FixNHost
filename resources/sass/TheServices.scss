@@ -92,8 +92,11 @@
 
     &__image {
       width: 100%;
+      max-width: 220px;
       height: 160px;
       object-fit: cover;
+      margin: 0 auto;
+      display: block;
     }
 
     h4 {
@@ -135,6 +138,15 @@
       }
     }
   }
+}
+
+.the-services__grid.single-card {
+  justify-content: center;
+  grid-template-columns: 1fr;
+}
+.the-services__grid.single-card > .service-card {
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 /* Responsive adjustments */

@@ -1,0 +1,44 @@
+.profile-content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto; /* Center the content within the container */
+
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #666;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .profile-content {
+    h1 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .profile-content {
+    h1 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+}

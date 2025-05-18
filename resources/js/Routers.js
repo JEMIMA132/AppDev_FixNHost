@@ -12,16 +12,33 @@ import ContactUs from "./components/Contacts/ContactUs";
 import Policy from "./components/Dropdowns/Policy";
 import Terms from "./components/Dropdowns/Terms";
 import Faqs from "./components/Dropdowns/Faqs";
-import Become from "./components/Becomes/Become"; // Import the Become component
+import Become from "./components/Becomes/Become";
 import Choose from "./components/ServicesContent/Choose";
+import Profile from "./components/Profiles/Profile";
+import AdminDashboard from "./components/AdminContent/AdminDashboard";
+import Dashboard from "./components/AdminContent/Dashboard";
+import Users from "./components/AdminContent/Users";
+import Customers from "./components/AdminContent/Customers";
+import HostVendors from "./components/AdminContent/HostVendors";
+import FixVendors from "./components/AdminContent/FixVendors";
+import AdminBookings from "./components/AdminContent/AdminBookings";
+import Transactions from "./components/AdminContent/Transactions";
+import Reviews from "./components/AdminContent/Reviews";
+import Reports from "./components/AdminContent/Reports";
+import LiveChat from "./components/AdminContent/LiveChat";
+import AdminSettings from "./components/AdminContent/AdminSettings";
+import AccountSettings from "./components/AdminContent/AccountSettings";
+// Admin Dashboard Components
+const Products = () => <div>Products Management</div>;
+const Orders = () => <div>Orders Management</div>;
+const ReturnRequests = () => <div>Return Requests Management</div>;
+const Inventory = () => <div>Inventory Management</div>;
+const Customer = () => <div>Customer Management</div>;
+const Inbox = () => <div>Inbox Management</div>;
+const CustomerSupport = () => <div>Customer Support</div>;
 
-// Private Route Component (for pages that need the user to be logged in)
-const PrivateRoute = ({ element }) => {
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  return isLoggedIn ? element : <Navigate to="/login" replace />;
-};
 
-// Placeholder components for FixVendor and HostVendor (update as needed)
+// Placeholder components for FixVendor and HostVendor
 const FixVendor = () => <div>FixVendor component goes here</div>;
 const HostVendor = () => <div>HostVendor component goes here</div>;
 
@@ -45,7 +62,7 @@ const App = () => {
         <Route path="/privacy-policy" element={<Policy />} />
         <Route path="/terms-of-services" element={<Terms />} />
         <Route path="/faqs" element={<Faqs />} />
-        <Route path="/become" element={<Become />} /> {/* Add Become route */}
+        <Route path="/become" element={<Become />} />
 
         {/* Service Selection Route */}
         <Route path="/choose/:type/:id" element={<Choose />} />
@@ -54,8 +71,37 @@ const App = () => {
         <Route path="/fix-vendor" element={<FixVendor />} />
         <Route path="/host-vendor" element={<HostVendor />} />
 
+        {/* Profile Page */}
+        <Route path="/profile" element={<Profile />} />
+
+        {/* Admin Dashboard */}
+        <Route path="/admin-dashboard" element={<AdminDashboard />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="products" element={<Products />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="orders/:orderId" element={<Orders />} />
+          <Route path="returns" element={<ReturnRequests />} />
+          <Route path="inventory" element={<Inventory />} />
+          <Route path="customer" element={<Customer />} />
+          <Route path="users" element={<Users />} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="vendors/fix-vendors" element={<FixVendors />} />
+          <Route path="vendors/host-vendors" element={<HostVendors />} />
+          <Route path="bookings" element={<AdminBookings />} />
+          <Route path="transaction" element={<Transactions />} />
+          <Route path="reviews" element={<Reviews />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="live-chat" element={<LiveChat />} />
+          <Route path="inbox" element={<Inbox />} />
+          <Route path="customer-support" element={<CustomerSupport />} />
+          <Route path="settings" element={<Navigate to="settings/account" replace />} />
+          <Route path="settings/account" element={<AccountSettings />} />
+          <Route path="settings/admin" element={<AdminSettings />} />
+        </Route>
+
         {/* Protected Route Example */}
-        <Route path="/protected-home" element={<PrivateRoute element={<Homepage />} />} />
+        <Route path="/protected-home" element={<Homepage />} />
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/login" replace />} />

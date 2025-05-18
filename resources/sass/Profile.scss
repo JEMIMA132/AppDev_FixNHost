@@ -1,0 +1,220 @@
+.profile {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f7fa;
+
+  &__wrapper {
+    flex-grow: 1;
+    min-height: calc(100vh - 60px); /* Adjust for header (60px) */
+  }
+
+  &__layout {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px; /* Limit the overall width for larger screens */
+    margin: 0 auto; /* Center the layout */
+    padding: 20px;
+  }
+
+  &__tabs {
+    display: flex;
+    flex-direction: column; /* Stack tabs vertically */
+    width: 250px; /* Fixed width for the tabs column */
+    background-color: #fff;
+    border: 1px solid #e0e0e0; /* Add border for rounded corners */
+    border-radius: 10px; /* Slightly rounded corners for the container */
+    padding: 20px 0; /* Adjusted padding to give more space */
+    margin-right: 20px; /* Space between tabs and content */
+    align-items: stretch; /* Ensure tabs stretch to fill the container */
+    height: 100%; /* Fill available height */
+    max-height: 100vh; /* Prevent extending beyond the viewport */
+    overflow-y: auto; /* Allow scrolling if content exceeds height */
+    flex-shrink: 0; /* Prevent shrinking in flex layout */
+  }
+
+  &__user-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0; /* Separator between user info and tabs */
+    margin-bottom: 10px;
+  }
+
+  &__user-avatar {
+    margin-bottom: 10px;
+  }
+
+  &__user-avatar-image {
+    width: 80px; /* Increased size to match placeholder */
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #00A3B5; /* Teal border to match the design */
+  }
+
+  &__user-avatar-placeholder {
+    width: 80px; /* Increased from 60px */
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px; /* Increased font size for initials */
+    font-weight: 600;
+    color: #666;
+    border: 2px solid #00A3B5;
+  }
+
+  &__user-info {
+    text-align: center;
+  }
+
+  &__user-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  /* Removed profile__user-membership styles */
+
+  &__tab {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    background: none;
+    border: none;
+    border-left: 4px solid transparent; /* Use border-left for vertical tabs */
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%; /* Full width of the container */
+    justify-content: flex-start; /* Align content to the left */
+
+    &:hover {
+      color: #333;
+      background-color: #f5f5f5;
+    }
+
+    &--active {
+      color: #333;
+      border-left: 4px solid #00A3B5; /* Teal color from the design */
+      background-color: #f5f5f5;
+    }
+  }
+
+  &__tab-icon {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__content-container {
+    flex-grow: 1;
+    padding: 0 20px;
+    width: calc(100% - 270px); /* Take remaining space after tabs and margin */
+    max-width: 800px; /* Limit content width */
+    margin: 0 auto; /* Center the content */
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .profile {
+    &__wrapper {
+      min-height: calc(100vh - 50px); /* Adjust for smaller header on mobile */
+    }
+
+    &__layout {
+      flex-direction: column; /* Stack tabs and content vertically on mobile */
+      padding: 15px;
+    }
+
+    &__tabs {
+      width: 100%; /* Full width on mobile */
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      margin-right: 0;
+      margin-bottom: 20px;
+      height: auto;
+      max-height: none;
+      overflow-y: visible;
+    }
+
+    &__user-section {
+      padding: 15px;
+    }
+
+    &__user-avatar-image,
+    &__user-avatar-placeholder {
+      width: 60px; /* Adjusted for mobile */
+      height: 60px;
+      font-size: 24px; /* Adjusted font size for initials */
+    }
+
+    &__user-name {
+      font-size: 16px;
+    }
+
+    &__tab {
+      font-size: 14px;
+      padding: 8px 15px;
+    }
+
+    &__tab-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    &__content-container {
+      width: 100%; /* Full width on mobile */
+      padding: 0;
+      max-width: 100%; /* Allow content to take full width */
+    }
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .profile {
+    &__layout {
+      padding: 10px;
+    }
+
+    &__tabs {
+      padding: 10px 0; /* Reduced padding */
+    }
+
+    &__user-section {
+      padding: 10px;
+    }
+
+    &__user-avatar-image,
+    &__user-avatar-placeholder {
+      width: 50px; /* Adjusted for smaller screens */
+      height: 50px;
+      font-size: 20px; /* Adjusted font size for initials */
+    }
+
+    &__user-name {
+      font-size: 14px;
+    }
+
+    &__tab {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+
+    &__tab-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+  }
+}

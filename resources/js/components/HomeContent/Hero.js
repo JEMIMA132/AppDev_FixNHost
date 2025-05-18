@@ -1,45 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUserPlus } from 'react-icons/fa';
 
-const images = [
-  '/images/slide 1.svg',
-];
-
 const Hero = () => {
   const navigate = useNavigate();
-  const [currentImage, setCurrentImage] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 3000); // Change every 3 seconds
-    return () => clearInterval(interval);
-  }, []);
 
   const handleBecomeVendor = () => {
-    navigate('/become'); // Updated to navigate to /become
+    navigate('/become');
   };
 
   return (
     <section className="hero">
-      <img
-        src={images[currentImage]}
-        alt="Hero Slide"
-        className="hero__image"
-      />
-      <div className="hero__overlay">
-        <h1>
-          Your Go-To Platform for<br /><span className="highlight-repairs">Repairs</span> & <span className="highlight-events">Events</span>
-        </h1>
-        <p>
-          Book trusted home repair experts or plan your perfect event — all in one place.
-        </p>
-        <div className="hero__buttons">
-          <button onClick={handleBecomeVendor} className="hero__button">
-            <FaUserPlus style={{ marginRight: '8px' }} /> {/* Person icon for Become a Vendor */}
-            Become a Vendor
-          </button>
+      <div className="hero__content">
+        <div className="hero__image-container">
+          <img
+            src="/images/fixserve.svg"
+            alt="Fix Service Expert"
+            className="hero__image"
+          />
+        </div>
+        <div className="hero__text">
+          <h2>
+            Your Go-To Platform for<br />
+            Repairs & Events
+          </h2>
+          <p>
+            Connect with trusted home repair experts and event planners that match your specific needs and schedule. Whether you need urgent repairs or planning a special occasion, our platform makes finding the right professional quick, easy, and reliable — all in one place.
+          </p>
+          <div className="button-container">
+            <button onClick={handleBecomeVendor} className="hero__button">
+              <FaUserPlus /> Become a Vendor
+            </button>
+          </div>
         </div>
       </div>
     </section>

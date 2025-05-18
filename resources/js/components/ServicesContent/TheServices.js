@@ -231,7 +231,7 @@ const TheServices = ({ searchTerm }) => {
       {(activeTab === 'repair' || activeTab === 'both') && filteredFixServices.length > 0 && (
         <div className="the-services__category">
           <h3>Fix Services</h3>
-          <div className="the-services__grid">
+          <div className={`the-services__grid${filteredFixServices.length === 1 ? ' single-card' : ''}`}>
             {filteredFixServices.map((service, index) => (
               <div key={index} className="service-card">
                 <img src={service.image} alt={service.title} className="service-card__image" />
@@ -253,7 +253,7 @@ const TheServices = ({ searchTerm }) => {
       {(activeTab === 'event' || activeTab === 'both') && filteredHostServices.length > 0 && (
         <div className="the-services__category">
           <h3>Host Services</h3>
-          <div className="the-services__grid">
+          <div className={`the-services__grid${filteredHostServices.length === 1 ? ' single-card' : ''}`}>
             {filteredHostServices.map((service, index) => (
               <div key={index} className="service-card">
                 <img src={service.image} alt={service.title} className="service-card__image" />
