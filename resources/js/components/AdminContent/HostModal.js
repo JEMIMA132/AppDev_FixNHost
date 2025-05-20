@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import axios from 'axios';
 
-const HostModal = ({ isOpen, onClose, onVendorAdded, editMode = false, vendorData = null }) => {
+const HostModal = ({ isOpen, onClose, onVendorAdded, editMode = false, vendorData = null, availableServiceTypes = [] }) => {
   const initialFormData = {
     name: '',
     phone: '',
@@ -45,31 +44,42 @@ const HostModal = ({ isOpen, onClose, onVendorAdded, editMode = false, vendorDat
     setErrors(prev => ({ ...prev, [name]: null }));
   };
 
-  const handleSubmit = async (e) => {
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = ['Name is required'];
+    if (!formData.phone.trim()) newErrors.phone = ['Phone is required'];
+    if (!formData.serviceOffered.trim()) newErrors.serviceOffered = ['Service Offered is required'];
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
-
-    try {
-      const endpoint = editMode ? `/api/host-vendors/${vendorData.id}` : '/api/host-vendors';
-      const method = editMode ? 'put' : 'post';
-      
-      const response = await axios[method](endpoint, formData);
-      setSuccessMessage(editMode ? 'Vendor updated successfully!' : 'Vendor added successfully!');
-      onVendorAdded(response.data, editMode);
-      setTimeout(() => {
-        onClose();
-      }, 1000);
-    } catch (err) {
-      console.error(`Failed to ${editMode ? 'update' : 'add'} vendor:`, err.response?.data);
-      if (err.response?.status === 422) {
-        setErrors(err.response.data.errors || {});
-      } else {
-        setErrors({ general: `Failed to ${editMode ? 'update' : 'add'} vendor. Please try again.` });
-      }
-    } finally {
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       setLoading(false);
+      return;
     }
+    // Local add/edit logic
+    if (editMode) {
+      onVendorAdded(formData, true);
+      setSuccessMessage('Vendor updated successfully!');
+    } else {
+      const newVendor = {
+        ...formData,
+        id: Date.now(),
+        dateCreated: new Date().toISOString().split('T')[0],
+      };
+      onVendorAdded(newVendor, false);
+      setSuccessMessage('Vendor added successfully!');
+    }
+    setTimeout(() => {
+      setLoading(false);
+      onClose();
+      setSuccessMessage('');
+    }, 800);
   };
 
   if (!isOpen) return null;
@@ -158,6 +168,9 @@ const HostModal = ({ isOpen, onClose, onVendorAdded, editMode = false, vendorDat
                 <option value="Corporate Events">Corporate Events</option>
                 <option value="Social Events">Social Events</option>
                 <option value="Other">Other</option>
+                {availableServiceTypes.map((serviceType, index) => (
+                  <option key={`dynamic-type-${index}`} value={serviceType.name}>{serviceType.name}</option>
+                ))}
               </select>
               {errors.serviceOffered && (
                 <div className="host-modal__error">{errors.serviceOffered[0]}</div>
@@ -204,5 +217,3 @@ const HostModal = ({ isOpen, onClose, onVendorAdded, editMode = false, vendorDat
 };
 
 export default HostModal;
-
-

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, Search } from 'lucide-react';
+import { Eye, Search, Trash2 } from 'lucide-react';
 import TransactModal from './TransactModal';
 import '../../../sass/AdminPages/Transactions.scss';
 
@@ -8,9 +8,7 @@ const Transactions = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-
-  // Sample data - replace with actual API data
-  const transactions = [
+  const [transactions, setTransactions] = useState([
     {
       id: 'TRX001',
       transactionId: 'TRX001',
@@ -155,7 +153,9 @@ const Transactions = () => {
       description: 'Corporate lunch catering for 50 people',
       receiptNumber: 'RCP008'
     }
-  ];
+  ]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(null);
 
   const handleView = (transaction) => {
     setSelectedTransaction(transaction);
@@ -166,6 +166,49 @@ const Transactions = () => {
     // Handle transaction update if needed
     console.log('Transaction updated:', updatedTransaction);
     setIsModalOpen(false);
+  };
+
+  const handleDelete = async (transaction) => {
+    if (window.confirm('Are you sure you want to delete this transaction?')) {
+      setIsDeleting(true);
+      setDeleteError(null);
+      
+      try {
+        // Make API call to delete the transaction
+        const response = await fetch(`/api/transactions/${transaction.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any authentication headers if needed
+            // 'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to delete transaction');
+        }
+
+        // Remove the deleted transaction from the state
+        setTransactions(prevTransactions => 
+          prevTransactions.filter(t => t.id !== transaction.id)
+        );
+
+        // If we're on a page that would be empty after deletion, go to previous page
+        const remainingItems = transactions.length - 1;
+        const itemsPerPage = 10;
+        const currentPageItems = remainingItems % itemsPerPage;
+        
+        if (currentPageItems === 0 && currentPage > 1) {
+          setCurrentPage(prev => prev - 1);
+        }
+
+      } catch (error) {
+        console.error('Error deleting transaction:', error);
+        setDeleteError('Failed to delete transaction. Please try again.');
+      } finally {
+        setIsDeleting(false);
+      }
+    }
   };
 
   const filteredTransactions = transactions.filter(transaction => 
@@ -198,6 +241,12 @@ const Transactions = () => {
           />
         </div>
       </div>
+
+      {deleteError && (
+        <div className="admin-transactions__error-message">
+          {deleteError}
+        </div>
+      )}
 
       <div className="admin-transactions__table-container">
         <table className="admin-transactions__table">
@@ -243,6 +292,14 @@ const Transactions = () => {
                       title="View Details"
                     >
                       <Eye size={16} />
+                    </button>
+                    <button
+                      className="delete"
+                      onClick={() => handleDelete(transaction)}
+                      title="Delete Transaction"
+                      disabled={isDeleting}
+                    >
+                      <Trash2 size={16} />
                     </button>
                   </div>
                 </td>
@@ -290,8 +347,3 @@ const Transactions = () => {
 };
 
 export default Transactions;
-
-
-
-
-

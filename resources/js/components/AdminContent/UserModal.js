@@ -1,172 +1,116 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import axios from 'axios';
 
-const UserModal = ({ isOpen, onClose, onUserAdded, editMode = false, userData = null }) => {
-  const initialFormData = {
+const UserModal = ({ isOpen, onClose, onUserAdded, editMode, userData }) => {
+  const [formData, setFormData] = useState({
     first_name: '',
-    middle_name: '',
     last_name: '',
-    suffix: '',
     phone: '',
-    gender: '',
-    role: '',
+    gender: 'Male',
+    role: 'Customer',
     status: 'Active',
-    date_created: new Date().toISOString().split('T')[0]
-  };
+  });
 
-  const [formData, setFormData] = useState(initialFormData);
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    if (isOpen) {
-      if (editMode && userData) {
-        setFormData({
-          ...userData,
-          date_created: userData.date_created || new Date().toISOString().split('T')[0]
-        });
-      } else {
-        resetForm();
-      }
+    if (editMode && userData) {
+      setFormData({
+        first_name: userData.first_name || '',
+        last_name: userData.last_name || '',
+        phone: userData.phone || '',
+        gender: userData.gender || 'Male',
+        role: userData.role || 'Customer',
+        status: userData.status || 'Active',
+        id: userData.id,
+      });
+    } else {
+      setFormData({
+        first_name: '',
+        last_name: '',
+        phone: '',
+        gender: 'Male',
+        role: 'Customer',
+        status: 'Active',
+      });
+      setErrors({});
     }
-  }, [isOpen, editMode, userData]);
+  }, [editMode, userData, isOpen]);
 
-  const resetForm = () => {
-    setFormData(initialFormData);
-    setErrors({});
-    setSuccessMessage('');
+  if (!isOpen) return null;
+
+  const validate = () => {
+    const errs = {};
+    if (!formData.first_name.trim()) errs.first_name = 'First name is required';
+    if (!formData.last_name.trim()) errs.last_name = 'Last name is required';
+    if (!formData.phone.trim()) errs.phone = 'Phone number is required';
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    setErrors(prev => ({ ...prev, [name]: null }));
+    setFormData(f => ({ ...f, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    setLoading(true);
-    setErrors({});
+    if (!validate()) return;
 
-    try {
-      const endpoint = editMode ? `/api/users/${userData.id}` : '/api/users';
-      const method = editMode ? 'put' : 'post';
-      
-      const response = await axios[method](endpoint, formData);
-      setSuccessMessage(editMode ? 'User updated successfully!' : 'User added successfully!');
-      onUserAdded(response.data, editMode);
-      setTimeout(() => {
-        onClose();
-      }, 1000);
-    } catch (err) {
-      console.error(`Failed to ${editMode ? 'update' : 'add'} user:`, err.response?.data);
-      if (err.response?.status === 422) {
-        setErrors(err.response.data.errors || {});
-      } else {
-        setErrors({ general: `Failed to ${editMode ? 'update' : 'add'} user. Please try again.` });
-      }
-    } finally {
-      setLoading(false);
-    }
+    onUserAdded(formData, editMode);
   };
-
-  if (!isOpen) return null;
 
   return (
-    <div className="user-modal__overlay">
-      <div className="user-modal">
-        <div className="user-modal__header">
-          <h2>{editMode ? 'Edit User' : 'Add New User'}</h2>
-          <button className="user-modal__close-button" onClick={onClose}>
+    <div className="user-modal__overlay" onClick={onClose}>
+      <div className="user-modal" onClick={e => e.stopPropagation()}>
+        <header className="user-modal__header">
+          <h2>{editMode ? 'Edit User' : 'Add User'}</h2>
+          <button className="user-modal__close-button" onClick={onClose} aria-label="Close">
             <X size={20} />
           </button>
-        </div>
-
-        <form onSubmit={handleSubmit} className="user-modal__form">
-          {errors.general && (
-            <div className="user-modal__error">{errors.general}</div>
-          )}
-
+        </header>
+        <form className="user-modal__form" onSubmit={handleSubmit} noValidate>
           <div className="user-modal__field-row">
             <div className="user-modal__field">
-              <label htmlFor="first_name">First Name *</label>
+              <label htmlFor="first_name">First Name</label>
               <input
-                type="text"
                 id="first_name"
                 name="first_name"
+                type="text"
                 value={formData.first_name}
                 onChange={handleChange}
-                required
                 className={errors.first_name ? 'is-invalid' : ''}
               />
-              {errors.first_name && (
-                <div className="user-modal__error">{errors.first_name[0]}</div>
-              )}
+              {errors.first_name && <div className="user-modal__error">{errors.first_name}</div>}
             </div>
-
             <div className="user-modal__field">
-              <label htmlFor="middle_name">Middle Name</label>
+              <label htmlFor="last_name">Last Name</label>
               <input
-                type="text"
-                id="middle_name"
-                name="middle_name"
-                value={formData.middle_name}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="user-modal__field-row">
-            <div className="user-modal__field">
-              <label htmlFor="last_name">Last Name *</label>
-              <input
-                type="text"
                 id="last_name"
                 name="last_name"
+                type="text"
                 value={formData.last_name}
                 onChange={handleChange}
-                required
                 className={errors.last_name ? 'is-invalid' : ''}
               />
-              {errors.last_name && (
-                <div className="user-modal__error">{errors.last_name[0]}</div>
-              )}
-            </div>
-
-            <div className="user-modal__field">
-              <label htmlFor="suffix">Suffix</label>
-              <input
-                type="text"
-                id="suffix"
-                name="suffix"
-                value={formData.suffix}
-                onChange={handleChange}
-              />
+              {errors.last_name && <div className="user-modal__error">{errors.last_name}</div>}
             </div>
           </div>
 
-          <div className="user-modal__field-row">
-            <div className="user-modal__field">
-              <label htmlFor="phone">Phone *</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                className={errors.phone ? 'is-invalid' : ''}
-              />
-              {errors.phone && (
-                <div className="user-modal__error">{errors.phone[0]}</div>
-              )}
-            </div>
+          <div className="user-modal__field">
+            <label htmlFor="phone">Phone</label>
+            <input
+              id="phone"
+              name="phone"
+              type="text"
+              value={formData.phone}
+              onChange={handleChange}
+              className={errors.phone ? 'is-invalid' : ''}
+            />
+            {errors.phone && <div className="user-modal__error">{errors.phone}</div>}
+          </div>
 
+          <div className="user-modal__field-row">
             <div className="user-modal__field">
               <label htmlFor="gender">Gender</label>
               <select
@@ -174,35 +118,25 @@ const UserModal = ({ isOpen, onClose, onUserAdded, editMode = false, userData = 
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
-                className={errors.gender ? 'is-invalid' : ''}
               >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
               </select>
             </div>
-          </div>
 
-          <div className="user-modal__field-row">
             <div className="user-modal__field">
-              <label htmlFor="role">Role *</label>
+              <label htmlFor="role">Role</label>
               <select
                 id="role"
                 name="role"
                 value={formData.role}
                 onChange={handleChange}
-                required
-                className={errors.role ? 'is-invalid' : ''}
               >
-                <option value="">Select Role</option>
-                <option value="Admin">Admin</option>
-                <option value="Vendor">Vendor</option>
-                <option value="Customer">Customer</option>
+                <option>Customer</option>
+                <option>Vendor</option>
+                <option>Admin</option>
               </select>
-              {errors.role && (
-                <div className="user-modal__error">{errors.role[0]}</div>
-              )}
             </div>
 
             <div className="user-modal__field">
@@ -213,27 +147,25 @@ const UserModal = ({ isOpen, onClose, onUserAdded, editMode = false, userData = 
                 value={formData.status}
                 onChange={handleChange}
               >
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+                <option>Active</option>
+                <option>Inactive</option>
               </select>
             </div>
           </div>
 
           <div className="user-modal__actions">
             <button
+              type="submit"
+              className="user-modal__button user-modal__button--primary"
+            >
+              {editMode ? 'Update User' : 'Add User'}
+            </button>
+            <button
               type="button"
               className="user-modal__button user-modal__button--secondary"
               onClick={onClose}
-              disabled={loading}
             >
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="user-modal__button user-modal__button--primary"
-              disabled={loading}
-            >
-              {loading ? (editMode ? 'Updating...' : 'Adding...') : (editMode ? 'Update User' : 'Add User')}
             </button>
           </div>
         </form>
@@ -243,3 +175,4 @@ const UserModal = ({ isOpen, onClose, onUserAdded, editMode = false, userData = 
 };
 
 export default UserModal;
+

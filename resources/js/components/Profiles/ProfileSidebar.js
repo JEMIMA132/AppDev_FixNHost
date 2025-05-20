@@ -2,11 +2,18 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Clock, Settings, LogOut } from 'lucide-react';
 
-
 const ProfileSidebar = () => {
-  const user = JSON.parse(localStorage.getItem('user')) || { firstName: 'John', lastName: 'Smith' };
-  const initials = `${user.firstName[0]}${user.lastName[0]}`;
+  const user = JSON.parse(localStorage.getItem('user')) || {};
+  const profile = user.profile || {};
+  const initials = profile.first_name && profile.last_name ? `${profile.first_name[0]}${profile.last_name[0]}` : 'NA';
   const navigate = useNavigate();
+
+  const getProfileImageUrl = (profile_pic) => {
+    if (!profile_pic) return null;
+    if (profile_pic.startsWith('http')) return profile_pic;
+    if (profile_pic.startsWith('/')) return `http://127.0.0.1:8000${profile_pic}`;
+    return `http://127.0.0.1:8000/storage/${profile_pic}`;
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -17,9 +24,14 @@ const ProfileSidebar = () => {
   return (
     <div className="profile-sidebar">
       <div className="profile-sidebar__user">
-        <div className="profile-sidebar__avatar">{initials}</div>
-        <h2 className="profile-sidebar__name">{`${user.firstName} ${user.lastName}`}</h2>
-        <p className="profile-sidebar__member">Member since 2021</p>
+        {getProfileImageUrl(profile.profile_pic) ? (
+          <img src={getProfileImageUrl(profile.profile_pic)} alt="Profile" className="profile-sidebar__avatar" />
+        ) : (
+          <div className="profile-sidebar__avatar">{initials}</div>
+        )}
+        <h2 className="profile-sidebar__name">{profile.first_name && profile.last_name ? `${profile.first_name} ${profile.last_name}` : 'User'}</h2>
+        <p className="profile-sidebar__member">Gender: {profile.gender || 'N/A'}</p>
+        <p className="profile-sidebar__member">Suffix: {profile.suffix || 'N/A'}</p>
       </div>
       <nav className="profile-sidebar__nav">
         <Link to="/profile" className="profile-sidebar__link profile-sidebar__link--active">

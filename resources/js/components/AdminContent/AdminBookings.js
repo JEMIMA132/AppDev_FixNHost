@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, Edit, Trash2, Search } from 'lucide-react';
 import BookingsModal from './BookingsModal';
 import '../../../sass/AdminPages/AdminBookings.scss';
@@ -41,7 +41,21 @@ const AdminBookings = () => {
     // Add more sample data as needed
   ];
 
-  const [bookingsData, setBookingsData] = useState(bookings);
+  const [bookingsData, setBookingsData] = useState(() => {
+    const stored = localStorage.getItem('adminBookingsData');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch {
+        return bookings;
+      }
+    }
+    return bookings;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('adminBookingsData', JSON.stringify(bookingsData));
+  }, [bookingsData]);
 
   const handleView = (booking) => {
     setEditingBooking(booking);
@@ -56,8 +70,9 @@ const AdminBookings = () => {
   };
 
   const handleDelete = (id) => {
-    console.log('Delete booking:', id);
-    // Implement delete functionality
+    if (window.confirm('Are you sure you want to delete this booking?')) {
+      setBookingsData(prev => prev.filter(b => b.id !== id));
+    }
   };
 
   const handleBookingUpdated = (updatedBooking, isEdit) => {
@@ -211,3 +226,5 @@ const AdminBookings = () => {
 };
 
 export default AdminBookings;
+
+

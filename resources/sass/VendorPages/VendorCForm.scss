@@ -1,0 +1,96 @@
+.vendorcform-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 2rem 2.5rem 2.5rem 2.5rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  /* border: 1px solid #f1f1f1; */
+}
+
+.vendorcform-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #222;
+  gap: 0.75rem;
+}
+
+.vendorcform-title__icon {
+  display: flex;
+  align-items: center;
+}
+
+.vendorcform-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.vendorcform-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vendorcform-label {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.25rem;
+}
+
+.vendorcform-desc {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.vendorcform-upload {
+  width: 100%;
+  min-height: 90px;
+  border: 2px dashed #e5e7eb;
+  border-radius: 10px;
+  background: #fafbfc;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 1.25rem 1rem;
+  transition: border 0.2s;
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 1.08rem;
+}
+.vendorcform-upload:hover {
+  border-color: #0097B2;
+}
+
+.vendorcform-upload__icon {
+  color: #a3a3a3;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.vendorcform-upload__text {
+  color: #6b7280;
+}
+
+@media (max-width: 900px) {
+  .vendorcform-row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vendorcform-card {
+    padding: 1.5rem;
+  }
+}
+

@@ -91,6 +91,29 @@
         }
       }
 
+      .custom-gender-select {
+        width: 100%;
+        max-width: 384px;
+        height: 40px;
+        padding: 9px 38px 9px 18px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        line-height: 20px;
+        box-sizing: border-box;
+        background: #fff url('data:image/svg+xml;utf8,<svg fill="%230097B2" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>') no-repeat right 14px center/18px 18px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+        transition: border-color 0.2s ease;
+      }
+
+      .custom-gender-select:focus {
+        border-color: #0097B2;
+        outline: none;
+      }
+
       .create-account-btn {
         width: 100%;
         max-width: 384px;

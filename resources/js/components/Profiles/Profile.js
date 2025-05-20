@@ -4,51 +4,25 @@ import Header from '../Headers/Header';
 import ProfileContent from './ProfileContent';
 
 const Profile = () => {
+  const [profile, setProfile] = useState({});
   const [activeTab, setActiveTab] = useState('profile');
   const [isEditing, setIsEditing] = useState(false);
-  const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    profilePicture: null, // Renamed from userAvatar
-  });
 
-  const fetchUserData = () => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (storedUser) {
-      setUser({
-        firstName: storedUser.firstName || '',
-        lastName: storedUser.lastName || '',
-        profilePicture: storedUser.profilePicture || null, // Renamed from userAvatar
-      });
-    }
+  const getProfileImageUrl = (profile_pic) => {
+    if (!profile_pic) return null;
+    if (profile_pic.startsWith('http')) return profile_pic;
+    if (profile_pic.startsWith('/')) return `http://127.0.0.1:8000${profile_pic}`;
+    return `http://127.0.0.1:8000/storage/${profile_pic}`;
   };
 
   useEffect(() => {
-    fetchUserData(); // Initial fetch
-
-    // Listen for storage events (triggered when localStorage changes in another tab/window)
-    const handleStorageChange = (event) => {
-      if (event.key === 'user') {
-        fetchUserData();
-      }
+    const updateProfile = () => {
+      const user = JSON.parse(localStorage.getItem('user')) || {};
+      setProfile(user.profile || {});
     };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    // Cleanup listener on unmount
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
-
-  // Since the storage event doesn't fire in the same tab, we can also listen for a custom event
-  // This is optional but ensures updates in the same tab are caught
-  useEffect(() => {
-    const handleUserUpdate = () => {
-      fetchUserData();
-    };
-
-    window.addEventListener('userUpdated', handleUserUpdate);
-
-    return () => window.removeEventListener('userUpdated', handleUserUpdate);
+    updateProfile();
+    window.addEventListener('userUpdated', updateProfile);
+    return () => window.removeEventListener('userUpdated', updateProfile);
   }, []);
 
   const handleTabChange = (tab) => {
@@ -57,9 +31,10 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    console.log("User logged out");
     // Add your logout logic here (e.g., clear localStorage, redirect, etc.)
   };
+
+  const initials = profile.first_name && profile.last_name ? `${profile.first_name[0]}${profile.last_name[0]}` : 'NA';
 
   return (
     <div className="profile">
@@ -69,25 +44,23 @@ const Profile = () => {
           <div className="profile__tabs">
             <div className="profile__user-section">
               <div className="profile__user-avatar">
-                {user.profilePicture ? ( // Renamed from userAvatar
+                {getProfileImageUrl(profile.profile_pic) ? (
                   <img
-                    src={user.profilePicture}
+                    src={getProfileImageUrl(profile.profile_pic)}
                     alt="User Avatar"
                     className="profile__user-avatar-image"
                   />
                 ) : (
                   <div className="profile__user-avatar-placeholder">
-                    {user.firstName && user.lastName
-                      ? `${user.firstName[0]}${user.lastName[0]}`
-                      : 'NA'}
+                    {initials}
                   </div>
                 )}
               </div>
               <div className="profile__user-info">
                 <h2 className="profile__user-name">
-                  {user.firstName && user.lastName
-                    ? `${user.firstName} ${user.lastName}`
-                    : 'John Smith'}
+                  {profile.first_name && profile.last_name
+                    ? `${profile.first_name} ${profile.last_name}`
+                    : 'User'}
                 </h2>
               </div>
             </div>
@@ -103,7 +76,7 @@ const Profile = () => {
               onClick={() => handleTabChange('booking-history')}
             >
               <Clock className="profile__tab-icon" />
-              Booking History
+              My Bookings
             </button>
             <button
               className={`profile__tab ${activeTab === 'settings' ? 'profile__tab--active' : ''}`}
@@ -111,13 +84,6 @@ const Profile = () => {
             >
               <Settings className="profile__tab-icon" />
               Settings
-            </button>
-            <button
-              className={`profile__tab ${activeTab === 'plan-subscription' ? 'profile__tab--active' : ''}`}
-              onClick={() => handleTabChange('plan-subscription')}
-            >
-              <CreditCard className="profile__tab-icon" />
-              Plan and Subscription
             </button>
             <button
               className="profile__tab"

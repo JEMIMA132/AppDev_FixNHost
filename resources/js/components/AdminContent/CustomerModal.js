@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import axios from 'axios';
 
-const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, customerData = null }) => {
+const CustomerModal = ({ isOpen, onClose, onSaveCustomer, editMode = false, customerData = null }) => {
   const initialFormData = {
     first_name: '',
     middle_name: '',
@@ -12,12 +11,12 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
     gender: '',
     email: '',
     status: 'Active',
-    date_created: new Date().toISOString().split('T')[0]
+    dateCreated: new Date().toISOString().split('T')[0],
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
@@ -25,54 +24,49 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
       if (editMode && customerData) {
         setFormData({
           ...customerData,
-          date_created: customerData.date_created || new Date().toISOString().split('T')[0]
+          dateCreated: customerData.dateCreated || new Date().toISOString().split('T')[0],
         });
       } else {
-        resetForm();
+        setFormData(initialFormData);
+        setErrors({});
+        setSuccessMessage('');
       }
     }
   }, [isOpen, editMode, customerData]);
 
-  const resetForm = () => {
-    setFormData(initialFormData);
-    setErrors({});
-    setSuccessMessage('');
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    setErrors(prev => ({ ...prev, [name]: null }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: null }));
   };
 
-  const handleSubmit = async (e) => {
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.first_name.trim()) newErrors.first_name = ['First name is required'];
+    if (!formData.last_name.trim()) newErrors.last_name = ['Last name is required'];
+    if (!formData.phone.trim()) newErrors.phone = ['Phone is required'];
+    if (!formData.email.trim()) newErrors.email = ['Email is required'];
+    // Add any more validation if needed
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrors({});
-
-    try {
-      const endpoint = editMode ? `/api/customers/${customerData.id}` : '/api/customers';
-      const method = editMode ? 'put' : 'post';
-      
-      const response = await axios[method](endpoint, formData);
-      setSuccessMessage(editMode ? 'Customer updated successfully!' : 'Customer added successfully!');
-      onCustomerAdded(response.data, editMode);
-      setTimeout(() => {
-        onClose();
-      }, 1000);
-    } catch (err) {
-      console.error(`Failed to ${editMode ? 'update' : 'add'} customer:`, err.response?.data);
-      if (err.response?.status === 422) {
-        setErrors(err.response.data.errors || {});
-      } else {
-        setErrors({ general: `Failed to ${editMode ? 'update' : 'add'} customer. Please try again.` });
-      }
-    } finally {
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       setLoading(false);
+      return;
     }
+    // call parent save function
+    onSaveCustomer(formData, editMode);
+    setSuccessMessage(editMode ? 'Customer updated successfully!' : 'Customer added successfully!');
+    setTimeout(() => {
+      setLoading(false);
+      onClose();
+      setSuccessMessage('');
+    }, 800);
   };
 
   if (!isOpen) return null;
@@ -88,9 +82,7 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
         </div>
 
         <form onSubmit={handleSubmit} className="customer-modal__form">
-          {errors.general && (
-            <div className="customer-modal__error">{errors.general}</div>
-          )}
+          {errors.general && <div className="customer-modal__error">{errors.general}</div>}
 
           <div className="customer-modal__field-row">
             <div className="customer-modal__field">
@@ -104,9 +96,7 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
                 required
                 className={errors.first_name ? 'is-invalid' : ''}
               />
-              {errors.first_name && (
-                <div className="customer-modal__error">{errors.first_name[0]}</div>
-              )}
+              {errors.first_name && <div className="customer-modal__error">{errors.first_name[0]}</div>}
             </div>
 
             <div className="customer-modal__field">
@@ -133,9 +123,7 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
                 required
                 className={errors.last_name ? 'is-invalid' : ''}
               />
-              {errors.last_name && (
-                <div className="customer-modal__error">{errors.last_name[0]}</div>
-              )}
+              {errors.last_name && <div className="customer-modal__error">{errors.last_name[0]}</div>}
             </div>
 
             <div className="customer-modal__field">
@@ -162,9 +150,7 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
                 required
                 className={errors.phone ? 'is-invalid' : ''}
               />
-              {errors.phone && (
-                <div className="customer-modal__error">{errors.phone[0]}</div>
-              )}
+              {errors.phone && <div className="customer-modal__error">{errors.phone[0]}</div>}
             </div>
 
             <div className="customer-modal__field">
@@ -178,9 +164,7 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
                 required
                 className={errors.email ? 'is-invalid' : ''}
               />
-              {errors.email && (
-                <div className="customer-modal__error">{errors.email[0]}</div>
-              )}
+              {errors.email && <div className="customer-modal__error">{errors.email[0]}</div>}
             </div>
           </div>
 
@@ -203,12 +187,7 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
 
             <div className="customer-modal__field">
               <label htmlFor="status">Status</label>
-              <select
-                id="status"
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-              >
+              <select id="status" name="status" value={formData.status} onChange={handleChange}>
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option>
               </select>
@@ -229,9 +208,11 @@ const CustomerModal = ({ isOpen, onClose, onCustomerAdded, editMode = false, cus
               className="customer-modal__button customer-modal__button--primary"
               disabled={loading}
             >
-              {loading ? (editMode ? 'Updating...' : 'Adding...') : (editMode ? 'Update Customer' : 'Add Customer')}
+              {loading ? (editMode ? 'Updating...' : 'Adding...') : editMode ? 'Update Customer' : 'Add Customer'}
             </button>
           </div>
+
+          {successMessage && <div className="customer-modal__success">{successMessage}</div>}
         </form>
       </div>
     </div>

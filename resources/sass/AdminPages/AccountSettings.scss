@@ -51,17 +51,8 @@
     outline: none;
     transition: border 0.2s;
     &:focus {
-      border-color: #3182ce;
+      border-color: #0097B2;
     }
-  }
-
-  &__avatar-preview {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #e2e8f0;
-    margin-top: 0.5rem;
   }
 
   &__actions {
@@ -72,7 +63,7 @@
   }
 
   &__save-btn {
-    background: #3182ce;
+    background: #0097B2;
     color: #fff;
     border: none;
     border-radius: 0.5rem;
@@ -82,7 +73,7 @@
     cursor: pointer;
     transition: background 0.2s;
     &:hover {
-      background: #2563eb;
+      background: #0097B2;
     }
   }
 }

@@ -62,3 +62,4 @@ const ReviewsModal = ({ isOpen, onClose, reviewData }) => {
 };
 
 export default ReviewsModal;
+

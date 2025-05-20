@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown, User, Settings, LogOut, Bell, MessageSquare } from 'lucide-react';
+import axios from '../../axios';
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -8,16 +9,29 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const loggedInStatus = localStorage.getItem('isLoggedIn');
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-
-    if (loggedInStatus === 'true' && storedUser) {
-      setIsLoggedIn(true);
-      setUser(storedUser);
-    }
+    checkAuthStatus();
   }, []);
+
+  const checkAuthStatus = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        // Set axios default header
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const response = await axios.get('/api/user');
+        setUser(response.data);
+        setIsLoggedIn(true);
+        // Store user in localStorage for use in other components
+        localStorage.setItem('user', JSON.stringify(response.data));
+      } catch (error) {
+        console.error('Error checking auth status:', error);
+        handleLogout();
+      }
+    }
+  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -31,12 +45,43 @@ const Header = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('user');
-    setIsLoggedIn(false);
-    setUser(null);
-    setIsProfileDropdownOpen(false);
+  const handleLogout = async () => {
+    try {
+      if (isLoggedIn) {
+        await axios.post('/logout');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    } finally {
+      // Clear local storage and state regardless of API call success
+      localStorage.removeItem('token');
+      delete axios.defaults.headers.common['Authorization'];
+      setIsLoggedIn(false);
+      setUser(null);
+      setIsProfileDropdownOpen(false);
+      navigate('/login');
+    }
+  };
+
+  // Add debug log to inspect the user object
+  console.log('Header user:', user);
+
+  // Support both { ...user fields..., profile: {...} } and { user: { ...user fields..., profile: {...} } }
+  const actualUser = user && user.user ? user.user : user;
+
+  // Helper to get the correct profile image URL
+  const getProfileImageUrl = () => {
+    if (!actualUser || !actualUser.profile || !actualUser.profile.profile_pic) {
+      return '/images/electrician.svg';
+    }
+    const profilePicPath = actualUser.profile.profile_pic;
+    if (profilePicPath.startsWith('http')) {
+      return profilePicPath;
+    } else if (profilePicPath.startsWith('/')) {
+      return `http://127.0.0.1:8000${profilePicPath}`;
+    } else {
+      return `http://127.0.0.1:8000/storage/${profilePicPath}`;
+    }
   };
 
   return (
@@ -71,7 +116,7 @@ const Header = () => {
         </ul>
       </nav>
       <div className="header__auth">
-        {isLoggedIn ? (
+        {isLoggedIn && user ? (
           <div className="header__auth-profile">
             <Link to="/notifications" className="header__icon">
               <Bell />
@@ -80,13 +125,13 @@ const Header = () => {
               <MessageSquare />
             </Link>
             <img
-              src={user.profilePicture || '/images/electrician.svg'}
+              src={getProfileImageUrl()}
               alt="Profile"
               className="profile-picture"
+              style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', border: '2px solid #0097b2' }}
             />
             <div className="profile-dropdown">
               <div className="profile-dropdown-toggle" onClick={toggleProfileDropdown}>
-                <span className="username">{`${user.firstName} ${user.lastName}`}</span>
                 <ChevronDown className={`profile-dropdown-arrow ${isProfileDropdownOpen ? 'open' : ''}`} />
               </div>
               {isProfileDropdownOpen && (

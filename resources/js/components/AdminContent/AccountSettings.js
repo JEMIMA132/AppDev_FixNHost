@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
-import '../../../sass/AdminPages/AccountSettings.scss';
 
 const AccountSettings = () => {
-  const [name, setName] = useState('John Doe');
-  const [email, setEmail] = useState('john.doe@example.com');
-  const [phone, setPhone] = useState('');
+  // Load initial state from local storage or use defaults
+  const [name, setName] = useState(() => {
+    const savedUser = localStorage.getItem('adminUser');
+    return savedUser ? JSON.parse(savedUser).name : 'John Doe';
+  });
+
+  const [email, setEmail] = useState(() => {
+    const savedUser = localStorage.getItem('adminUser');
+    return savedUser ? JSON.parse(savedUser).email : 'john.doe@example.com';
+  });
+
+  const [phone, setPhone] = useState(() => {
+    const savedUser = localStorage.getItem('adminUser');
+    return savedUser ? JSON.parse(savedUser).phone : '';
+  });
+
   const [avatar, setAvatar] = useState(null);
-  const [avatarPreview, setAvatarPreview] = useState('https://randomuser.me/api/portraits/men/1.jpg');
+  const [avatarPreview, setAvatarPreview] = useState(() => {
+    const savedUser = localStorage.getItem('adminUser');
+    return savedUser ? JSON.parse(savedUser).profile?.profile_pic : 'https://randomuser.me/api/portraits/men/1.jpg';
+  });
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -24,7 +39,32 @@ const AccountSettings = () => {
   const handleSave = (e) => {
     e.preventDefault();
     // Save logic here (API call, etc.)
-    alert('Account settings saved!');
+    const accountSettingsData = {
+      name: name,
+      email: email,
+      phone: phone,
+      avatar: avatar, // Note: avatar here is the File object or null. You might need to handle file uploads differently.
+      password: password,
+      newPassword: newPassword,
+      confirmPassword: confirmPassword,
+    };
+    console.log('Saving account settings:', accountSettingsData);
+    // TODO: Add API call here to send accountSettingsData to the backend
+
+    // Simulate saving to local storage for header update
+    const [firstName, ...lastNameParts] = name.split(' ');
+    const lastName = lastNameParts.join(' ');
+
+    const updatedUser = {
+      name: name, // Keep full name for potential use
+      profile: {
+        first_name: firstName || '',
+        last_name: lastName || '',
+        profile_pic: avatarPreview || '/images/default-avatar.jpg', // Use avatarPreview which is the data URL
+      },
+    };
+    localStorage.setItem('adminUser', JSON.stringify(updatedUser));
+    alert('Account settings saved (simulated)!');
   };
 
   return (
@@ -68,7 +108,6 @@ const AccountSettings = () => {
               accept="image/*"
               onChange={handleAvatarChange}
             />
-            <img src={avatarPreview} alt="Avatar Preview" className="account-settings__avatar-preview" />
           </div>
         </div>
 
@@ -116,8 +155,4 @@ const AccountSettings = () => {
 };
 
 export default AccountSettings;
-
-
-
-
 

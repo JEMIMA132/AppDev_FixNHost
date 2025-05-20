@@ -1,47 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, Trash2, Search, Star } from 'lucide-react';
 import ReviewsModal from './ReviewsModal';
 import '../../../sass/AdminPages/Reviews.scss';
+
+const LOCAL_STORAGE_KEY = 'admin_reviews';
+
+const defaultReviews = [
+  {
+    id: 'RVW001',
+    clientName: 'John Doe',
+    vendorName: 'TechFix Pro',
+    vendorType: 'Fix Vendor',
+    serviceBooked: 'Computer Repair',
+    rating: 5,
+    review: 'Excellent service! The technician was very professional and fixed my computer quickly.',
+    dateCreated: '2024-03-15'
+  },
+  {
+    id: 'RVW002',
+    clientName: 'Jane Smith',
+    vendorName: 'Event Masters',
+    vendorType: 'Host Vendor',
+    serviceBooked: 'Wedding Planning',
+    rating: 4,
+    review: 'Great experience overall. The wedding was beautifully organized, though there were some minor delays.',
+    dateCreated: '2024-03-12'
+  }
+];
 
 const Reviews = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedReview, setSelectedReview] = useState(null);
+  const [reviews, setReviews] = useState(() => {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : defaultReviews;
+  });
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(null);
 
-  // Sample data - replace with actual API data
-  const reviews = [
-    {
-      id: 'RVW001',
-      clientName: 'John Doe',
-      vendorName: 'TechFix Pro',
-      vendorType: 'Fix Vendor',
-      serviceBooked: 'Computer Repair',
-      rating: 5,
-      review: 'Excellent service! The technician was very professional and fixed my computer quickly.',
-      dateCreated: '2024-03-15'
-    },
-    {
-      id: 'RVW002',
-      clientName: 'Jane Smith',
-      vendorName: 'Event Masters',
-      vendorType: 'Host Vendor',
-      serviceBooked: 'Wedding Planning',
-      rating: 4,
-      review: 'Great experience overall. The wedding was beautifully organized, though there were some minor delays.',
-      dateCreated: '2024-03-12'
-    },
-    // Add more sample data as needed
-  ];
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(reviews));
+  }, [reviews]);
 
   const handleView = (review) => {
     setSelectedReview(review);
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id) => {
-    console.log('Delete review:', id);
-    // Implement delete functionality
+  const handleDelete = (review) => {
+    if (window.confirm('Are you sure you want to delete this review?')) {
+      setIsDeleting(true);
+      setDeleteError(null);
+
+      try {
+        // Only update local state, no API call
+        setReviews(prevReviews => prevReviews.filter(r => r.id !== review.id));
+
+        // Handle pagination as before
+        const remainingItems = reviews.length - 1;
+        const itemsPerPage = 10;
+        const currentPageItems = remainingItems % itemsPerPage;
+        if (currentPageItems === 0 && currentPage > 1) {
+          setCurrentPage(prev => prev - 1);
+        }
+      } catch (error) {
+        setDeleteError('Failed to delete review. Please try again.');
+      } finally {
+        setIsDeleting(false);
+      }
+    }
   };
 
   const renderStars = (rating) => {
@@ -77,6 +106,12 @@ const Reviews = () => {
       <div className="admin-reviews__header">
         <h1>Reviews Management</h1>
       </div>
+
+      {deleteError && (
+        <div className="admin-reviews__error-message">
+          {deleteError}
+        </div>
+      )}
 
       <div className="admin-reviews__search">
         <div className="search-group">
@@ -129,8 +164,9 @@ const Reviews = () => {
                     </button>
                     <button
                       className="delete"
-                      onClick={() => handleDelete(review.id)}
+                      onClick={() => handleDelete(review)}
                       title="Delete Review"
+                      disabled={isDeleting}
                     >
                       <Trash2 size={16} />
                     </button>
@@ -178,8 +214,3 @@ const Reviews = () => {
 };
 
 export default Reviews;
-
-
-
-
-

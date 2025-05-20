@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { UserPlus, Search, Archive, Edit, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { UserPlus, Search, Archive, Edit, Trash2, RotateCcw } from 'lucide-react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -63,9 +63,34 @@ const columnHelper = createColumnHelper();
 
 const HostVendors = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [data, setData] = useState(hostVendorsData);
+  const [data, setData] = useState(() => {
+    const stored = localStorage.getItem('hostVendorsData');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch {
+        return hostVendorsData;
+      }
+    }
+    return hostVendorsData;
+  });
+  const [availableServiceTypes, setAvailableServiceTypes] = useState(() => {
+    const savedServiceTypes = localStorage.getItem('serviceTypesList');
+    return savedServiceTypes ? JSON.parse(savedServiceTypes) : [];
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVendor, setEditingVendor] = useState(null);
+  const [showArchived, setShowArchived] = useState(false);
+
+  // Persist data to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('hostVendorsData', JSON.stringify(data));
+  }, [data]);
+
+  // Filtered data based on showArchived
+  const filteredData = data.filter(vendor =>
+    showArchived ? vendor.status === 'Inactive' : vendor.status === 'Active'
+  );
 
   const handleAddVendor = (newVendor, isEdit = false) => {
     if (isEdit) {
@@ -75,7 +100,9 @@ const HostVendors = () => {
     } else {
       const vendorWithId = {
         ...newVendor,
-        id: Math.max(...data.map(v => v.id)) + 1
+        id: Date.now(),
+        dateCreated: new Date().toISOString().split('T')[0],
+        status: 'Active',
       };
       setData(prev => [...prev, vendorWithId]);
     }
@@ -89,6 +116,22 @@ const HostVendors = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     setEditingVendor(null);
+  };
+
+  // Delete vendor by id
+  const handleDeleteVendor = (id) => {
+    if (window.confirm('Are you sure you want to delete this vendor?')) {
+      setData(prev => prev.filter(vendor => vendor.id !== id));
+    }
+  };
+
+  // Archive/unarchive vendor by toggling status
+  const handleArchiveVendor = (id) => {
+    setData(prev => prev.map(vendor =>
+      vendor.id === id
+        ? { ...vendor, status: vendor.status === 'Active' ? 'Inactive' : 'Active' }
+        : vendor
+    ));
   };
 
   const columns = React.useMemo(() => [
@@ -133,20 +176,38 @@ const HostVendors = () => {
             >
               <Edit size={16} />
             </button>
-            <button className="hostvendors__action-btn" title="Archive">
-              <Archive size={16} />
-            </button>
-            <button className="hostvendors__action-btn hostvendors__action-btn--danger" title="Delete">
+            {showArchived ? (
+              <button
+                className="hostvendors__action-btn"
+                title="Restore"
+                onClick={() => handleArchiveVendor(vendor.id)}
+              >
+                <RotateCcw size={16} />
+              </button>
+            ) : (
+              <button
+                className="hostvendors__action-btn"
+                title="Archive"
+                onClick={() => handleArchiveVendor(vendor.id)}
+              >
+                <Archive size={16} />
+              </button>
+            )}
+            <button 
+              className="hostvendors__action-btn hostvendors__action-btn--danger" 
+              title="Delete"
+              onClick={() => handleDeleteVendor(vendor.id)}
+            >
               <Trash2 size={16} />
             </button>
           </div>
         );
       },
     }),
-  ], []);
+  ], [showArchived]);
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -182,9 +243,12 @@ const HostVendors = () => {
               <UserPlus size={20} />
               Add Host Vendor
             </button>
-            <button className="hostvendors__archive-btn">
+            <button 
+              className="hostvendors__archive-btn"
+              onClick={() => setShowArchived(v => !v)}
+            >
               <Archive size={20} />
-              View Archived
+              {showArchived ? 'View Active' : 'View Archived'}
             </button>
           </div>
         </div>
@@ -264,6 +328,7 @@ const HostVendors = () => {
         onVendorAdded={handleAddVendor}
         editMode={!!editingVendor}
         vendorData={editingVendor}
+        availableServiceTypes={availableServiceTypes}
       />
     </div>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BecomeSub = ({ onClose, onSubscribe }) => {
+  const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState('Professional'); // Default to Professional as recommended
 
   const plans = [
@@ -38,6 +40,13 @@ const BecomeSub = ({ onClose, onSubscribe }) => {
 
   const handlePlanSelect = (planName) => {
     setSelectedPlan(planName);
+  };
+
+  const handleSubscribe = () => {
+    // Close the popup
+    onClose();
+    // Navigate to vendor registration page
+    navigate('/vendor-registration');
   };
 
   return (
@@ -83,7 +92,7 @@ const BecomeSub = ({ onClose, onSubscribe }) => {
           <button className="cancel-button" onClick={onClose}>
             Cancel
           </button>
-          <button className="subscribe-button" onClick={onSubscribe}>
+          <button className="subscribe-button" onClick={handleSubscribe}>
             Subscribe & Continue
           </button>
         </div>

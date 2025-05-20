@@ -181,3 +181,4 @@ const TransactModal = ({ isOpen, onClose, onTransactionUpdated, editMode = false
 };
 
 export default TransactModal;
+

@@ -1,0 +1,146 @@
+.vendorpform-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 2rem 2.5rem 2.5rem 2.5rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  /* border: 1px solid #f1f1f1; */
+}
+
+.vendorpform-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #222;
+  gap: 0.75rem;
+}
+
+.vendorpform-title__icon {
+  display: flex;
+  align-items: center;
+}
+
+.vendorpform-form {
+  width: 100%;
+}
+
+.vendorpform-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.vendorpform-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vendorpform-label {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.25rem;
+}
+
+.vendorpform-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  background: #fafbfc;
+  width: 100%;
+}
+.vendorpform-input:focus {
+  border-color: #0097B2;
+}
+
+.vendorpform-upload-group {
+  align-items: flex-start;
+}
+
+.vendorpform-desc {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.vendorpform-upload {
+  width: 100%;
+  height: 200px;
+  border: 2px dashed #e5e7eb;
+  border-radius: 10px;
+  background: #fafbfc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+  transition: border 0.2s;
+  position: relative;
+}
+.vendorpform-upload:hover {
+  border-color: #0097B2;
+}
+
+.vendorpform-upload__icon {
+  margin-bottom: 0.5rem;
+  color: #a3a3a3;
+}
+
+.vendorpform-upload__text {
+  color: #a3a3a3;
+  font-size: 1.1rem;
+}
+
+.vendorpform-upload__preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.vendorpform-choosefile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #0097B2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+.vendorpform-choosefile:hover {
+  background: #007a8a;
+  border: none;
+}
+
+.vendorpform-choosefile__icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .vendorpform-row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .vendorpform-card {
+    padding: 1.5rem;
+  }
+}
+

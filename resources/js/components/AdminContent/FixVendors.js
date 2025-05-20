@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { UserPlus, Search, Archive, Edit, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { UserPlus, Search, Archive, Edit, Trash2, RotateCcw } from 'lucide-react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -42,13 +42,41 @@ const fixVendorsData = [
   // Add more sample data as needed
 ];
 
+const LOCAL_STORAGE_KEY = 'fixVendorsData';
+const SERVICES_LOCAL_STORAGE_KEY = 'servicesList';
+
 const columnHelper = createColumnHelper();
 
 const FixVendors = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [data, setData] = useState(fixVendorsData);
+  const [data, setData] = useState(() => {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch {
+        return fixVendorsData;
+      }
+    }
+    return fixVendorsData;
+  });
+  const [availableServices, setAvailableServices] = useState(() => {
+    const savedServices = localStorage.getItem(SERVICES_LOCAL_STORAGE_KEY);
+    return savedServices ? JSON.parse(savedServices) : [];
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVendor, setEditingVendor] = useState(null);
+  const [showArchived, setShowArchived] = useState(false);
+
+  // Persist data to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+  }, [data]);
+
+  // Filtered data based on showArchived
+  const filteredData = data.filter(vendor =>
+    showArchived ? vendor.status === 'Inactive' : vendor.status === 'Active'
+  );
 
   const handleAddVendor = (newVendor, isEdit = false) => {
     if (isEdit) {
@@ -73,6 +101,22 @@ const FixVendors = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     setEditingVendor(null);
+  };
+
+  // Delete vendor by id
+  const handleDeleteVendor = (id) => {
+    if (window.confirm('Are you sure you want to delete this vendor?')) {
+      setData(prev => prev.filter(vendor => vendor.id !== id));
+    }
+  };
+
+  // Archive/unarchive vendor by toggling status
+  const handleArchiveVendor = (id) => {
+    setData(prev => prev.map(vendor =>
+      vendor.id === id
+        ? { ...vendor, status: vendor.status === 'Active' ? 'Inactive' : 'Active' }
+        : vendor
+    ));
   };
 
   const columns = React.useMemo(() => [
@@ -117,20 +161,38 @@ const FixVendors = () => {
             >
               <Edit size={16} />
             </button>
-            <button className="fixvendors__action-btn" title="Archive">
-              <Archive size={16} />
-            </button>
-            <button className="fixvendors__action-btn fixvendors__action-btn--danger" title="Delete">
+            {showArchived ? (
+              <button
+                className="fixvendors__action-btn"
+                title="Restore"
+                onClick={() => handleArchiveVendor(vendor.id)}
+              >
+                <RotateCcw size={16} />
+              </button>
+            ) : (
+              <button
+                className="fixvendors__action-btn"
+                title="Archive"
+                onClick={() => handleArchiveVendor(vendor.id)}
+              >
+                <Archive size={16} />
+              </button>
+            )}
+            <button 
+              className="fixvendors__action-btn fixvendors__action-btn--danger" 
+              title="Delete"
+              onClick={() => handleDeleteVendor(vendor.id)}
+            >
               <Trash2 size={16} />
             </button>
           </div>
         );
       },
     }),
-  ], []); // Remove handleEditClick from dependencies to prevent infinite re-renders
+  ], [showArchived]);
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -166,9 +228,12 @@ const FixVendors = () => {
               <UserPlus size={20} />
               Add Fix Vendor
             </button>
-            <button className="fixvendors__archive-btn">
+            <button 
+              className="fixvendors__archive-btn"
+              onClick={() => setShowArchived(v => !v)}
+            >
               <Archive size={20} />
-              View Archived
+              {showArchived ? 'View Active' : 'View Archived'}
             </button>
           </div>
         </div>
@@ -248,14 +313,10 @@ const FixVendors = () => {
         onVendorAdded={handleAddVendor}
         editMode={!!editingVendor}
         vendorData={editingVendor}
+        availableServices={availableServices}
       />
     </div>
   );
 };
 
 export default FixVendors;
-
-
-
-
-

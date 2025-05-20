@@ -13,7 +13,7 @@
 }
 
 .user-modal {
-  background: white;
+  background: #fff;
   border-radius: 8px;
   width: 90%;
   max-width: 600px;
@@ -110,6 +110,18 @@
     color: #e53e3e;
     font-size: 0.75rem;
     margin-top: 2px;
+
+    &.general-error {
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+  }
+
+  &__success {
+    color: #2f855a;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 8px;
   }
 
   &__actions {
@@ -133,7 +145,7 @@
       color: white;
 
       &:hover:not(:disabled) {
-        background: #007A91;
+        background: #007a91;
       }
 
       &:disabled {
@@ -164,10 +176,12 @@
 }
 
 @keyframes slideIn {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
-
-
-
-

@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.vendor-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background-color: #0097B2;
+  border-right: 1px solid #e0e0e0;
+  font-family: "Inter-Medium", "Inter", sans-serif;
+  z-index: 100;
+  transition: transform 0.3s ease;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  &.closed {
+    transform: translateX(-100%);
+  }
+
+  &__nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  &__logo {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__logo-image {
+    height: 28px;
+    width: auto;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    margin-bottom: 2px;
+    padding: 0 8px;
+  }
+
+  &__separator {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 8px 16px;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    &:focus {
+      outline: 2px solid rgba(255, 255, 255, 0.3);
+      outline-offset: -2px;
+    }
+  }
+
+  &__icon {
+    margin-right: 12px;
+    color: #ffffff;
+    transition: color 0.3s ease;
+
+    .vendor-sidebar__link:hover & {
+      color: #ffffff;
+    }
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+
+  &__dropdown {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #0097B2;
+  }
+
+  &__dropdown-item {
+    padding-left: 10px;
+  }
+
+  &__link--dropdown {
+    padding: 8px 12px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 1px;
+    margin-bottom: 1px;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .vendor-sidebar__icon {
+      margin-right: 10px;
+      color: #ffffff;
+    }
+
+    &:hover .vendor-sidebar__icon {
+      color: #ffffff;
+    }
+  }
+
+  &__dropdown-icon {
+    margin-left: auto;
+    color: #ffffff;
+    transition: color 0.3s ease;
+
+    .vendor-sidebar__link:hover & {
+      color: #ffffff;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .vendor-sidebar {
+    width: 200px;
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    &.closed {
+      transform: translateX(-100%);
+    }
+
+    &__nav {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    &__logo {
+      padding: 10px;
+    }
+
+    &__logo-image {
+      height: 24px;
+    }
+
+    &__list {
+      padding: 12px 0;
+    }
+
+    &__separator {
+      margin: 6px 12px;
+    }
+
+    &__link {
+      padding: 8px 10px;
+    }
+
+    &__icon {
+      margin-right: 10px;
+    }
+
+    &__label {
+      font-size: 13px;
+    }
+
+    &__dropdown-item {
+      padding-left: 8px;
+    }
+
+    &__link--dropdown {
+      padding: 7px 10px;
+      font-size: 12px;
+
+      .vendor-sidebar__icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .vendor-sidebar {
+    width: 180px;
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    &.closed {
+      transform: translateX(-100%);
+    }
+
+    &__nav {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    &__logo {
+      padding: 8px;
+    }
+
+    &__logo-image {
+      height: 22px;
+    }
+
+    &__list {
+      padding: 8px 0;
+    }
+
+    &__separator {
+      margin: 5px 10px;
+    }
+
+    &__link {
+      padding: 7px 8px;
+    }
+
+    &__icon {
+      margin-right: 8px;
+    }
+
+    &__label {
+      font-size: 12px;
+    }
+
+    &__dropdown-item {
+      padding-left: 6px;
+    }
+
+    &__link--dropdown {
+      padding: 6px 8px;
+      font-size: 11px;
+
+      .vendor-sidebar__icon {
+        margin-right: 6px;
+      }
+    }
+  }
+}

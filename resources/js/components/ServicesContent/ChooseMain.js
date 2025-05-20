@@ -5,6 +5,7 @@ import ChoosePop from '../ServicesContent/ChoosePop';
 import ChooseForm from '../ServicesContent/ChooseForm';
 import ChooseSummary from '../ServicesContent/ChooseSummary';
 import ChooseConfirmed from '../ServicesContent/ChooseConfirmed';
+import ChoosePaymentMethod from '../ServicesContent/ChoosePaymentMethod';
 
 // Service types mapping to categories
 const serviceTypeMapping = {
@@ -92,6 +93,7 @@ const ChooseMain = () => {
   const [showConfirmed, setShowConfirmed] = useState(false);
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [formData, setFormData] = useState(null);
+  const [showPaymentMethod, setShowPaymentMethod] = useState(false);
 
   // Sample data for Fix Services (vendors) - unchanged
   const fixServiceVendors = [
@@ -758,9 +760,20 @@ const ChooseMain = () => {
 
   // Handle summary confirm
   const handleSummaryConfirm = () => {
-    console.log('Planning confirmed:', formData, selectedVendor);
     setShowSummary(false);
+    setShowPaymentMethod(true);
+  };
+
+  // Handle payment method confirm
+  const handlePaymentConfirmed = () => {
+    setShowPaymentMethod(false);
     setShowConfirmed(true);
+  };
+
+  // Handle payment method back
+  const handlePaymentBack = () => {
+    setShowPaymentMethod(false);
+    setShowSummary(true);
   };
 
   // Handle summary close
@@ -857,7 +870,7 @@ const ChooseMain = () => {
           onClose={handleFormClose}
         />
       )}
-      {showSummary && selectedVendor && formData && (
+      {showSummary && selectedVendor && formData && !showPaymentMethod && (
         <ChooseSummary
           planningData={formData}
           eventData={{
@@ -867,6 +880,12 @@ const ChooseMain = () => {
           }}
           onConfirm={handleSummaryConfirm}
           onClose={handleSummaryClose}
+        />
+      )}
+      {showPaymentMethod && (
+        <ChoosePaymentMethod
+          onBack={handlePaymentBack}
+          onConfirm={handlePaymentConfirmed}
         />
       )}
       {showConfirmed && (

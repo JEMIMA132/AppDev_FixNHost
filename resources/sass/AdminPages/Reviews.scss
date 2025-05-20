@@ -115,6 +115,16 @@
     color: #4a5568;
   }
 
+  &__error-message {
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    border: 1px solid #feb2b2;
+  }
+
   &__actions {
     display: flex;
     gap: 0.5rem;
@@ -129,15 +139,20 @@
       cursor: pointer;
       transition: all 0.2s;
 
-      &:hover {
+      &:hover:not(:disabled) {
         background-color: #f7fafc;
         color: #2d3748;
       }
 
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
       &.view {
-        color: #3182ce;
+        color: #2d3748;
         &:hover {
-          background-color: #ebf8ff;
+          background-color: #f7fafc;
         }
       }
 
@@ -216,8 +231,4 @@
     }
   }
 }
-
-
-
-
 

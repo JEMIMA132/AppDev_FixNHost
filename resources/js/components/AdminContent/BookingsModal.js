@@ -1,8 +1,5 @@
-/* Inserting a new BookingsModal component (similar to CustomerModal) for view/edit booking details */
-
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import axios from 'axios';
 
 const BookingsModal = ({ isOpen, onClose, onBookingUpdated, editMode = false, bookingData = null }) => {
   const initialFormData = {
@@ -49,32 +46,22 @@ const BookingsModal = ({ isOpen, onClose, onBookingUpdated, editMode = false, bo
     setErrors(prev => ({ ...prev, [name]: null }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!editMode) {
-      // In view mode, do nothing (or you can close the modal)
       onClose();
       return;
     }
     setLoading(true);
     setErrors({});
-    try {
-      const endpoint = editMode ? `/api/bookings/${bookingData.id}` : '/api/bookings';
-      const method = editMode ? 'put' : 'post';
-      const response = await axios[method](endpoint, formData);
-      setSuccessMessage(editMode ? 'Booking updated successfully!' : 'Booking added successfully!');
-      onBookingUpdated(response.data, editMode);
-      setTimeout(() => { onClose(); }, 1000);
-    } catch (err) {
-      console.error(`Failed to ${editMode ? 'update' : 'add'} booking:`, err.response?.data);
-      if (err.response?.status === 422) {
-        setErrors(err.response.data.errors || {});
-      } else {
-        setErrors({ general: `Failed to ${editMode ? 'update' : 'add'} booking. Please try again.` });
-      }
-    } finally {
+    // Local update logic
+    onBookingUpdated(formData, true);
+    setSuccessMessage('Booking updated successfully!');
+    setTimeout(() => {
       setLoading(false);
-    }
+      onClose();
+      setSuccessMessage('');
+    }, 800);
   };
 
   if (!isOpen) return null;

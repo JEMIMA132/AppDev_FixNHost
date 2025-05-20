@@ -1,0 +1,268 @@
+.vendoraform-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 2rem 2.5rem 2.5rem 2.5rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  /* border: 1px solid #f1f1f1; */
+}
+
+.vendoraform-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #222;
+  gap: 0.75rem;
+}
+
+.vendoraform-title__icon {
+  display: flex;
+  align-items: center;
+}
+
+.vendoraform-desc {
+  color: #6b7280;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.vendoraform-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fafbfc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.1rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.vendoraform-label {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.25rem;
+}
+
+.vendoraform-status-text {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-top: 0.2rem;
+}
+
+.vendoraform-switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+}
+.vendoraform-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.vendoraform-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #e5e7eb;
+  border-radius: 28px;
+  transition: background 0.2s;
+}
+.vendoraform-switch input:checked + .vendoraform-slider {
+  background: #a78bfa;
+  box-shadow: 0 2px 8px #a78bfa33;
+}
+.vendoraform-slider:before {
+  position: absolute;
+  content: '';
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.vendoraform-switch input:checked + .vendoraform-slider:before {
+  transform: translateX(24px);
+}
+
+.vendoraform-weekly {
+  margin-top: 1.5rem;
+  background: #fafbfc;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+.vendoraform-weekly-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.vendoraform-weekly-title__icon {
+  color: #222;
+  display: flex;
+  align-items: center;
+}
+
+.vendoraform-day {
+  margin-bottom: 2.2rem;
+}
+
+.vendoraform-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.vendoraform-day-name {
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: #222;
+}
+
+.vendoraform-day-slots-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.vendoraform-day-slots-label {
+  color: #a3a3a3;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 140px;
+}
+
+.vendoraform-day-slots {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.vendoraform-slot {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.65rem 1.5rem;
+  font-size: 1.02rem;
+  color: #222;
+  font-weight: 500;
+  min-width: 120px;
+  text-align: center;
+}
+
+.vendoraform-day-addslot-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.vendoraform-slot-input {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+  width: 110px;
+}
+
+.vendoraform-addslot-btn {
+  background: #0097B2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.vendoraform-addslot-btn:disabled {
+  background: #e5e7eb;
+  color: #a3a3a3;
+  cursor: not-allowed;
+}
+
+.vendoraform-slot.selected, .vendoraform-slot:active {
+  border-color: #0097B2;
+  background: #e6fafd;
+  color: #0097B2;
+}
+
+.vendoraform-day-divider {
+  border: none;
+  border-top: 1px solid #ececec;
+  margin: 1.2rem 0 0.5rem 0;
+}
+
+.vendoraform-input:focus, .vendoraform-textarea:focus {
+  border-color: #0097B2;
+}
+
+.vendoraform-upload:hover {
+  border-color: #0097B2;
+}
+
+.vendoraform-submit {
+  background: #0097B2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 2.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 2.5rem auto 0 auto;
+  box-shadow: 0 2px 8px #0097B222;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.vendoraform-submit:hover {
+  background: #007a8a;
+  box-shadow: 0 4px 16px #0097B233;
+}
+
+@media (max-width: 900px) {
+  .vendoraform-weekly {
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vendoraform-card {
+    padding: 1.5rem;
+  }
+  .vendoraform-status-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .vendoraform-weekly {
+    padding: 0.7rem 0.2rem 0.2rem 0.2rem;
+  }
+  .vendoraform-day-slots-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .vendoraform-day-addslot-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
